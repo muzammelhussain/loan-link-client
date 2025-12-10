@@ -1,3 +1,15 @@
-import { createContext } from "react";
+import React from "react";
 
-export const AuthContext = createContext(null);
+const AuthLayout = () => {
+  return (
+    <div className="max-w-7xl mx-auto">
+      <div className="flex items-center">
+        <div className="flex-1">
+          <Outlet></Outlet>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AuthLayout;
