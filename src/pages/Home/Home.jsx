@@ -15,7 +15,7 @@ const Home = () => {
   const { data: loans = [] } = useQuery({
     queryKey: ["available-loans"],
     queryFn: async () => {
-      const res = await axiosInstance.get("/loans?limit=6");
+      const res = await axiosInstance.get("/loans/latest");
       return res.data;
     },
   });
