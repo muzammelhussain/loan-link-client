@@ -8,6 +8,8 @@ import LoanApplicationForm from "../pages/Loan/LoanApplicationForm";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
+import PrivateRoute from "./PrivateRoute";
+import LoanDetails from "../pages/Loan/LoanDetails";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         Component: Contact,
+      },
+      {
+        path: "loan-details",
+        element: (
+          <PrivateRoute>
+            <LoanDetails></LoanDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "loan-application",
