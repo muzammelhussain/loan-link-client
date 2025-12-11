@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import useAuth from "../../../hooks/useAuth";
+import axios from "axios";
 
 const Register = () => {
   const {
@@ -10,37 +12,151 @@ const Register = () => {
     reset,
     formState: { errors },
   } = useForm();
+
   const [loading, setLoading] = useState(false);
+  const { registerUser, updateUserProfile } = useAuth();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    const { name, email, password, photoURL, role } = data;
+  // const handleRegistration = async (data) => {
+  //   setLoading(true);
 
-    // Password Validation
-    const uppercase = /[A-Z]/;
-    const lowercase = /[a-z]/;
+  //   const { name, email, password, role } = data;
+  //   const photoFile = data.photo[0];
 
-    if (!uppercase.test(password)) {
-      toast.error("Password must include at least one uppercase letter");
-      return;
-    }
-    if (!lowercase.test(password)) {
-      toast.error("Password must include at least one lowercase letter");
-      return;
-    }
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
-      return;
-    }
+  //   // ⛔ Password validation
+  //   if (password.length < 6) {
+  //     toast.error("Password must be at least 6 characters!");
+  //     setLoading(false);
+  //     return;
+  //   }
+  //   if (!/[A-Z]/.test(password)) {
+  //     toast.error("Password must contain at least 1 uppercase letter!");
+  //     setLoading(false);
+  //     return;
+  //   }
+  //   if (!/[a-z]/.test(password)) {
+  //     toast.error("Password must contain at least 1 lowercase letter!");
+  //     setLoading(false);
+  //     return;
+  //   }
 
+  //   try {
+  //     // 1️⃣ Register user in Firebase
+  //     const result = await registerUser(email, password);
+  //     const user = result.user;
+
+  //     // 2️⃣ Upload image to imgbb
+  //     const imgForm = new FormData();
+  //     imgForm.append("image", photoFile);
+
+  //     const imgUploadURL = `https://api.imgbb.com/1/upload?key=${
+  //       import.meta.env.VITE_image_host_key
+  //     }`;
+
+  //     const imgRes = await axios.post(imgUploadURL, imgForm);
+  //     const photoURL = imgRes.data.data.url;
+
+  //     // 3️⃣ Update Firebase profile
+  //     await updateUserProfile({
+  //       displayName: name,
+  //       photoURL: photoURL,
+  //     });
+
+  //     // 4️⃣ Save user to database
+  //     const userInfo = {
+  //       name,
+  //       email,
+  //       role,
+  //       photoURL,
+  //     };
+
+  //     await axios.post("/users", userInfo);
+
+  //     toast.success("Registration Successful!");
+  //     reset();
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error(error.message);
+  //   }
+
+  //   setLoading(false);
+  // };
+  const handleRegistration = async (data) => {
     setLoading(true);
 
-    // 👉 Example Register (use your own API/Auth method)
-    // Fake timeout for demonstration
-    setTimeout(() => {
+    const { name, email, password, role } = data;
+    const photoFile = data.photo[0];
+
+    // ⛔ Password validation
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters!");
+      setLoading(false);
+      return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      toast.error("Password must contain at least 1 uppercase letter!");
+      setLoading(false);
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      toast.error("Password must contain at least 1 lowercase letter!");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // 1️⃣ Register user in Firebase
+      const result = await registerUser(email, password);
+      const user = result.user;
+
+      // 2️⃣ Upload image to imgbb (fetch)
+      const imgForm = new FormData();
+      imgForm.append("image", photoFile);
+
+      const imgUploadURL = `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_image_host_key
+      }`;
+
+      const imgRes = await fetch(imgUploadURL, {
+        method: "POST",
+        body: imgForm,
+      });
+
+      const imgData = await imgRes.json();
+      const photoURL = imgData.data.url;
+
+      // 3️⃣ Update Firebase profile
+      await updateUserProfile({
+        displayName: name,
+        photoURL: photoURL,
+      });
+
+      // 4️⃣ Save user to database (fetch)
+      const userInfo = {
+        name,
+        email,
+        role,
+        photoURL,
+      };
+
+      await fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      });
+
       toast.success("Registration Successful!");
       reset();
-      setLoading(false);
-    }, 1200);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -50,7 +166,7 @@ const Register = () => {
           LoanLink Register
         </h2>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(handleRegistration)} className="space-y-4">
           {/* Name */}
           <div>
             <label className="font-semibold">Full Name</label>
@@ -79,17 +195,16 @@ const Register = () => {
             )}
           </div>
 
-          {/* Photo URL */}
+          {/* Photo Upload */}
           <div>
-            <label className="font-semibold">Photo URL</label>
+            <label className="font-semibold">Photo</label>
             <input
-              type="text"
-              {...register("photoURL", { required: true })}
-              className="input input-bordered w-full mt-1"
-              placeholder="Photo URL"
+              type="file"
+              {...register("photo", { required: true })}
+              className="file-input input-bordered w-full mt-1"
             />
-            {errors.photoURL && (
-              <p className="text-red-500 text-sm">Photo URL is required</p>
+            {errors.photo && (
+              <p className="text-red-500 text-sm">Photo is required</p>
             )}
           </div>
 
@@ -133,9 +248,9 @@ const Register = () => {
           </button>
         </form>
 
-        {/* Redirect to Login */}
+        {/* Redirect Link */}
         <p className="text-center mt-4 text-gray-600">
-          Already have an account?
+          Already have an account?{" "}
           <Link
             to="/login"
             className="text-blue-600 font-semibold ml-1 hover:underline"
