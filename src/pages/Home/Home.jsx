@@ -1,9 +1,33 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../hooks/useAxios";
+
+import HeroSection from "./HomeSections/HeroSection";
+import AvailableLoans from "./HomeSections/AvailableLoans";
+import HowItWorks from "./HomeSections/HowItWorks";
+import FeedbackCarousel from "./HomeSections/FeedbackCarousel";
+import FeaturesSection from "./HomeSections/FeaturesSection";
+import CtaSection from "./HomeSections/CtaSection";
 
 const Home = () => {
+  const axiosInstance = useAxios();
+
+  const { data: loans = [] } = useQuery({
+    queryKey: ["available-loans"],
+    queryFn: async () => {
+      const res = await axiosInstance.get("/loans?limit=6");
+      return res.data;
+    },
+  });
+
   return (
     <div>
-      <h1>this is home page</h1>
+      <HeroSection />
+      <AvailableLoans loans={loans} />
+      <HowItWorks />
+      <FeedbackCarousel />
+      <FeaturesSection />
+      <CtaSection />
     </div>
   );
 };
