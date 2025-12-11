@@ -8,8 +8,8 @@ import { router } from "./routes/router.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </AuthProvider>
+    {/* <AuthProvider>
+    </AuthProvider> */}
+    <RouterProvider router={router}></RouterProvider>
   </StrictMode>
 );
