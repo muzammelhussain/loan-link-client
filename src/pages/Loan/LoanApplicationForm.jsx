@@ -12,7 +12,6 @@ const LoanApplicationForm = () => {
   const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
 
-  // Load loan details
   const { data: loan } = useQuery({
     queryKey: ["loan", id],
     queryFn: async () => {
@@ -59,7 +58,7 @@ const LoanApplicationForm = () => {
       // Initial Status
       status: "Pending",
       applicationFeeStatus: "Unpaid",
-      appliedAt: new Date().toISOString(), // Add timestamp
+      appliedAt: new Date().toISOString(),
     };
     console.log(application);
     try {
@@ -67,7 +66,6 @@ const LoanApplicationForm = () => {
 
       toast.success("Loan Application Submitted successfully!");
       reset();
-      // Optional: Navigate to a dashboard or success page
       // navigate('/user-dashboard/my-applications');
     } catch (error) {
       console.error("Submission error:", error);
@@ -82,7 +80,6 @@ const LoanApplicationForm = () => {
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* === AUTO-FILLED LOAN DETAILS === */}
         <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
           <h3 className="text-xl font-semibold mb-3 text-indigo-800">
             Loan Details
@@ -106,7 +103,6 @@ const LoanApplicationForm = () => {
               </label>
               <input
                 readOnly
-                // 🛑 FIXED ACCESS
                 value={loan["Loan Title"]}
                 className="input input-bordered w-full bg-gray-100 cursor-not-allowed font-semibold"
               />
@@ -119,7 +115,6 @@ const LoanApplicationForm = () => {
             </label>
             <input
               readOnly
-              // 🛑 FIXED ACCESS
               value={loan["Interest Rate"]}
               className="input input-bordered w-full bg-gray-100 cursor-not-allowed font-semibold"
             />
@@ -130,7 +125,6 @@ const LoanApplicationForm = () => {
           Personal & Financial Information
         </h3>
 
-        {/* User Input Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-gray-700">

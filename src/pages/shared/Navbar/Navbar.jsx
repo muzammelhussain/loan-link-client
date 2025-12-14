@@ -14,20 +14,30 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to="">Home</NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
         <NavLink to="/all-loan-page">All Loan</NavLink>
       </li>
-      <li>
-        <NavLink to="/loan-application">Loan Application</NavLink>
-      </li>
-      <li>
-        <NavLink to="/about-us">About-Us</NavLink>
-      </li>
-      <li>
-        <NavLink to="/contact">Contact</NavLink>
-      </li>
+
+      {!user && (
+        <>
+          <li>
+            <NavLink to="/about-us">About-Us</NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact">Contact</NavLink>
+          </li>
+        </>
+      )}
+
+      {user && (
+        <>
+          <li>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -189,17 +199,33 @@ const Navbar = () => {
       <div className="navbar-end">
         {!user ? (
           <>
-            <Link className="btn" to="/login">
+            <Link className="btn btn-outline mr-2" to="/login">
               Login
             </Link>
-            <Link className="btn" to="/register">
+            <Link className="btn btn-primary" to="/register">
               Register
             </Link>
           </>
         ) : (
-          <button onClick={handleLogOut} className="btn">
-            Logout
-          </button>
+          <div className="flex items-center gap-3">
+            {/* User Avatar */}
+            <div className="avatar">
+              <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img
+                  src={user.photoURL || "https://i.ibb.co/2kR9p3R/user.png"}
+                  alt="User Avatar"
+                />
+              </div>
+            </div>
+
+            {/* Logout Button */}
+            <button
+              onClick={handleLogOut}
+              className="btn btn-error btn-sm text-white"
+            >
+              Logout
+            </button>
+          </div>
         )}
       </div>
     </div>
