@@ -73,28 +73,39 @@ const DashboardLayout = () => {
             )}
 
             {/* admin only links */}
-            {/* {
-                            role === 'admin' && <>
-                                <li>
-                                    <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders" to="/dashboard/approve-riders">
-                                        <FaMotorcycle />
-                                        <span className="is-drawer-close:hidden">Approve Riders</span>
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign Riders" to="/dashboard/assign-riders">
-                                        <RiEBikeFill />
-                                        <span className="is-drawer-close:hidden">Assign Riders</span>
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management" to="/dashboard/users-management">
-                                        <FaUsers></FaUsers>
-                                        <span className="is-drawer-close:hidden">Users Management</span>
-                                    </NavLink>
-                                </li>
-                            </>
-                        } */}
+            {role === "admin" && (
+              <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Approve Riders"
+                    to="/dashboard/loan-applications"
+                  >
+                    <span className="is-drawer-close:hidden">
+                      Loan Applications
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assign Riders"
+                    to="/dashboard/all-loans-admin"
+                  >
+                    <span className="is-drawer-close:hidden">All Loans</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Users Management"
+                    to="/dashboard/manage-users"
+                  >
+                    <span className="is-drawer-close:hidden">Manage Users</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
 
             {/* List item */}
             <li>

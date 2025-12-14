@@ -14,6 +14,10 @@ import Test from "../../Test";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyLoans from "../pages/Dashboard/Borrower/MyLoans";
 import MyProfile from "../pages/Dashboard/Borrower/MyProfile";
+import AdminRoute from "./AdminRoute";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import AllLoans from "../pages/Dashboard/Admin/AllLoans";
+import LoanApplicaitons from "../pages/Dashboard/Admin/LoanApplicaitons";
 
 export const router = createBrowserRouter([
   {
@@ -84,6 +88,30 @@ export const router = createBrowserRouter([
       {
         path: "my-profile",
         Component: MyProfile,
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "all-loans-admin",
+        element: (
+          <AdminRoute>
+            <AllLoans></AllLoans>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "loan-applications",
+        element: (
+          <AdminRoute>
+            <LoanApplicaitons></LoanApplicaitons>
+          </AdminRoute>
+        ),
       },
     ],
   },
