@@ -45,7 +45,7 @@ const AvailableLoans = ({ loans }) => {
               </p>
 
               {/* BUTTON */}
-              <Link to={`/loan/${loan._id}`}>
+              <Link to={`/loans/${loan._id}`}>
                 <button className="mt-4 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                   View Details
                 </button>

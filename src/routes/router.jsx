@@ -10,6 +10,7 @@ import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import LoanDetails from "../pages/Loan/LoanDetails";
+import Test from "../../Test";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ export const router = createBrowserRouter([
         Component: Contact,
       },
       {
-        path: "/loans/:_id",
+        path: "/loans/:id",
         element: (
           <PrivateRoute>
             <LoanDetails></LoanDetails>
@@ -41,7 +42,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "loan-application",
+        path: "/apply-loan/:id",
         Component: LoanApplicationForm,
         // element: (
         //   <PrivateRoute>
