@@ -5,9 +5,12 @@ import toast from "react-hot-toast";
 
 const ManageUsers = () => {
   const axiosInstance = useAxios();
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [newRole, setNewRole] = useState(null);
   const [reason, setReason] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [roleUser, setRoleUser] = useState(null);
+  const [suspendUser, setSuspendUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
@@ -23,17 +26,25 @@ const ManageUsers = () => {
     refetch();
   };
 
-  const suspendUser = async () => {
-    await axiosInstance.patch(`/users/suspend/${selectedUser._id}`, {
-      reason,
-      feedback,
-    });
+  const handleSuspendUser = async () => {
+    if (!selectedUser) return;
 
-    toast.success("User suspended");
-    setSelectedUser(null);
-    setReason("");
-    setFeedback("");
-    refetch();
+    try {
+      await axiosInstance.patch(`/users/suspend/${selectedUser._id}`, {
+        reason,
+        feedback,
+      });
+
+      toast.success("User suspended");
+
+      setSelectedUser(null);
+      setReason("");
+      setFeedback("");
+      refetch();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to suspend user");
+    }
   };
 
   const activateUser = async (id) => {
@@ -81,16 +92,13 @@ const ManageUsers = () => {
                 </td>
 
                 <td className="space-x-2">
-                  {/* Role Update */}
-                  <select
-                    className="select select-xs select-bordered"
-                    value={user.role}
-                    onChange={(e) => updateRole(user._id, e.target.value)}
+                  {/* Update Role Button */}
+                  <button
+                    onClick={() => setRoleUser(user)}
+                    className="btn btn-xs btn-info"
                   >
-                    <option value="user">Borrower</option>
-                    <option value="manager">Manager</option>
-                    <option value="admin">Admin</option>
-                  </select>
+                    Update Role
+                  </button>
 
                   {/* Suspend / Activate */}
                   {user.status === "Suspended" ? (
@@ -102,7 +110,7 @@ const ManageUsers = () => {
                     </button>
                   ) : (
                     <button
-                      onClick={() => setSelectedUser(user)}
+                      onClick={() => setSuspendUser(user)}
                       className="btn btn-xs btn-error"
                     >
                       Suspend
@@ -115,39 +123,77 @@ const ManageUsers = () => {
         </table>
       </div>
 
-      {/* Suspend Modal */}
-      {selectedUser && (
+      {roleUser && (
+        <dialog open className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">
+              Update Role for {roleUser.name}
+            </h3>
+
+            <select
+              className="select select-bordered w-full mt-4"
+              defaultValue={roleUser.role}
+              onChange={(e) => setNewRole(e.target.value)}
+            >
+              <option value="user">Borrower</option>
+              <option value="manager">Manager</option>
+              <option value="admin">Admin</option>
+            </select>
+
+            <div className="modal-action">
+              <button className="btn" onClick={() => setRoleUser(null)}>
+                Cancel
+              </button>
+              <button
+                className="btn btn-info"
+                onClick={async () => {
+                  await updateRole(roleUser._id, newRole || roleUser.role);
+                  setRoleUser(null);
+                }}
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </dialog>
+      )}
+      {suspendUser && (
         <dialog open className="modal">
           <div className="modal-box">
             <h3 className="font-bold text-lg text-error">
-              Suspend {selectedUser.name}
+              Suspend {suspendUser.name}
             </h3>
 
-            <div className="mt-4 space-y-3">
-              <input
-                type="text"
-                placeholder="Suspend Reason"
-                className="input input-bordered w-full"
-                value={reason}
-                onChange={(e) => setReason(e.target.value)}
-              />
+            <input
+              type="text"
+              placeholder="Suspend reason"
+              className="input input-bordered w-full mt-4"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+            />
 
-              <textarea
-                placeholder="Why are you suspending this user?"
-                className="textarea textarea-bordered w-full"
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-              ></textarea>
-            </div>
+            <textarea
+              placeholder="Why are you suspending this user?"
+              className="textarea textarea-bordered w-full mt-3"
+              value={feedback}
+              onChange={(e) => setFeedback(e.target.value)}
+            />
 
             <div className="modal-action">
-              <button className="btn" onClick={() => setSelectedUser(null)}>
+              <button
+                className="btn"
+                onClick={() => {
+                  setSuspendUser(null);
+                  setReason("");
+                  setFeedback("");
+                }}
+              >
                 Cancel
               </button>
               <button
                 className="btn btn-error"
-                onClick={suspendUser}
                 disabled={!reason || !feedback}
+                onClick={handleSuspendUser}
               >
                 Confirm Suspend
               </button>
