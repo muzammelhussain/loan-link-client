@@ -107,6 +107,56 @@ const DashboardLayout = () => {
               </>
             )}
 
+            {role === "manager" && (
+              <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Approve Riders"
+                    to="/dashboard/add-loan"
+                  >
+                    <span className="is-drawer-close:hidden">Add Loan</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assign Riders"
+                    to="/dashboard/manage-loan"
+                  >
+                    <span className="is-drawer-close:hidden">Manage Loans</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Users Management"
+                    to="/dashboard/pending-application"
+                  >
+                    <span className="is-drawer-close:hidden">
+                      Pending Loan Applications
+                    </span>
+                  </NavLink>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Users Management"
+                    to="/dashboard/approved-application"
+                  >
+                    <span className="is-drawer-close:hidden">
+                      Approved Loan Applications
+                    </span>
+                  </NavLink>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Users Management"
+                    to="/dashboard/my-profile-manager"
+                  >
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
+
             {/* List item */}
             <li>
               <button

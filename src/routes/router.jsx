@@ -18,6 +18,12 @@ import AdminRoute from "./AdminRoute";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import AllLoans from "../pages/Dashboard/Admin/AllLoans";
 import LoanApplicaitons from "../pages/Dashboard/Admin/LoanApplicaitons";
+import ManagerRoute from "./ManagerRoute";
+import AddLoan from "../pages/Dashboard/Manager/AddLoan";
+import ManageLoans from "../pages/Dashboard/Manager/ManageLoans";
+import PendingLoanApplications from "../pages/Dashboard/Manager/PendingLoanApplications";
+import ApprovedLoanapplications from "../pages/Dashboard/Manager/ApprovedLoanapplications";
+import MyProfileManager from "../pages/Dashboard/Manager/MyProfileManager";
 
 export const router = createBrowserRouter([
   {
@@ -111,6 +117,46 @@ export const router = createBrowserRouter([
           <AdminRoute>
             <LoanApplicaitons></LoanApplicaitons>
           </AdminRoute>
+        ),
+      },
+      {
+        path: "add-loan",
+        element: (
+          <ManagerRoute>
+            <AddLoan></AddLoan>
+          </ManagerRoute>
+        ),
+      },
+      {
+        path: "manage-loan",
+        element: (
+          <ManagerRoute>
+            <ManageLoans></ManageLoans>
+          </ManagerRoute>
+        ),
+      },
+      {
+        path: "pending-application",
+        element: (
+          <ManagerRoute>
+            <PendingLoanApplications></PendingLoanApplications>
+          </ManagerRoute>
+        ),
+      },
+      {
+        path: "approved-application",
+        element: (
+          <ManagerRoute>
+            <ApprovedLoanapplications></ApprovedLoanapplications>
+          </ManagerRoute>
+        ),
+      },
+      {
+        path: "my-profile-manager",
+        element: (
+          <ManagerRoute>
+            <MyProfileManager></MyProfileManager>
+          </ManagerRoute>
         ),
       },
     ],
