@@ -2,10 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../hooks/useAxios";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import LoanEditForm from "./LoanEditForm";
 
 const AllLoans = () => {
   const axiosInstance = useAxios();
   const [deleteLoanId, setDeleteLoanId] = useState(null);
+  const [selectedLoan, setSelectedLoan] = useState(null);
 
   const { data: loans = [], refetch } = useQuery({
     queryKey: ["admin-loans"],
@@ -88,7 +91,13 @@ const AllLoans = () => {
                 </td>
 
                 <td className="space-x-2">
-                  <button className="btn btn-xs btn-info">Update</button>
+                  <button
+                    className="btn btn-xs btn-info"
+                    onClick={() => setSelectedLoan(loan)}
+                  >
+                    Update
+                  </button>
+
                   <button
                     onClick={() => setDeleteLoanId(loan._id)}
                     className="btn btn-xs btn-error"
@@ -129,6 +138,24 @@ const AllLoans = () => {
               </button>
             </div>
           </div>
+        </dialog>
+      )}
+
+      {selectedLoan && (
+        <dialog open className="modal">
+          <div className="modal-box max-w-2xl">
+            <h3 className="font-bold text-xl mb-4">Edit Loan</h3>
+
+            <LoanEditForm
+              loan={selectedLoan}
+              closeModal={() => setSelectedLoan(null)}
+              refetch={refetch}
+            />
+          </div>
+
+          <form method="dialog" className="modal-backdrop">
+            <button onClick={() => setSelectedLoan(null)}>close</button>
+          </form>
         </dialog>
       )}
     </div>

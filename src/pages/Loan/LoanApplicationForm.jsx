@@ -56,8 +56,8 @@ const LoanApplicationForm = () => {
       notes: data.notes,
 
       // Initial Status
-      status: "Pending",
-      applicationFeeStatus: "Unpaid",
+      status: "pending",
+      applicationFeeStatus: "unpaid",
       appliedAt: new Date().toISOString(),
     };
     console.log(application);
