@@ -22,8 +22,8 @@ import ManagerRoute from "./ManagerRoute";
 import AddLoan from "../pages/Dashboard/Manager/AddLoan";
 import ManageLoans from "../pages/Dashboard/Manager/ManageLoans";
 import PendingLoanApplications from "../pages/Dashboard/Manager/PendingLoanApplications";
-import ApprovedLoanapplications from "../pages/Dashboard/Manager/ApprovedLoanapplications";
 import MyProfileManager from "../pages/Dashboard/Manager/MyProfileManager";
+import ApprovedLoans from "../pages/Dashboard/Manager/ApprovedLoans";
 
 export const router = createBrowserRouter([
   {
@@ -147,7 +147,7 @@ export const router = createBrowserRouter([
         path: "approved-application",
         element: (
           <ManagerRoute>
-            <ApprovedLoanapplications></ApprovedLoanapplications>
+            <ApprovedLoans></ApprovedLoans>
           </ManagerRoute>
         ),
       },
