@@ -87,7 +87,7 @@ const MyLoans = () => {
                 <td className="space-x-2">
                   {/* View */}
                   <Link
-                    to={`/loan-details/${loan.loanId}`}
+                    to={`/loans/${loan.loanId}`}
                     className="btn btn-xs btn-info"
                   >
                     View

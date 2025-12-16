@@ -27,10 +27,10 @@ const ManageUsers = () => {
   };
 
   const handleSuspendUser = async () => {
-    if (!selectedUser) return;
+    if (!suspendUser) return;
 
     try {
-      await axiosInstance.patch(`/users/suspend/${selectedUser._id}`, {
+      await axiosInstance.patch(`/users/suspend/${suspendUser._id}`, {
         reason,
         feedback,
       });
@@ -135,7 +135,7 @@ const ManageUsers = () => {
               defaultValue={roleUser.role}
               onChange={(e) => setNewRole(e.target.value)}
             >
-              <option value="user">Borrower</option>
+              <option value="borrower">Borrower</option>
               <option value="manager">Manager</option>
               <option value="admin">Admin</option>
             </select>

@@ -31,9 +31,9 @@ const LoanApplications = () => {
         onChange={(e) => setStatusFilter(e.target.value)}
       >
         <option value="All">All</option>
-        <option value="pending">Pending</option>
-        <option value="approved">Approved</option>
-        <option value="rejected">Rejected</option>
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
       </select>
 
       {/* Table */}
@@ -58,13 +58,13 @@ const LoanApplications = () => {
                   <p className="text-sm text-gray-500">{app.userEmail}</p>
                 </td>
                 <td>{app.loanTitle}</td>
-                <td>৳ {app.loanAmount}</td>
+                <td>${app.loanAmount}</td>
                 <td>
                   <span
                     className={`badge 
-                    ${app.status === "pending" && "badge-warning"}
-                    ${app.status === "approved" && "badge-success"}
-                    ${app.status === "rejected" && "badge-error"}
+                    ${app.status === "Pending" && "badge-warning"}
+                    ${app.status === "Approved" && "badge-success"}
+                    ${app.status === "Rejected" && "badge-error"}
                   `}
                   >
                     {app.status}

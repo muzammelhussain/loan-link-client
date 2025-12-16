@@ -4,11 +4,13 @@ import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { DollarSign, Clock, Tag, CreditCard, FileText } from "lucide-react";
+import useRole from "../../hooks/useRole";
 
 const LoanDetails = () => {
   const { id } = useParams();
   const axiosInstance = useAxios();
-  const { user, role, loading } = useAuth();
+  const { user, loading } = useAuth();
+  const { role } = useRole();
   const navigate = useNavigate();
 
   // Fetch loan details
@@ -48,17 +50,16 @@ const LoanDetails = () => {
     {
       icon: <CreditCard className="w-6 h-6 text-indigo-600" />,
       title: "Category",
-      value: loan["Category"],
+      value: loan.category,
     },
     {
       icon: <DollarSign className="w-6 h-6 text-indigo-600" />,
       title: "Interest Rate",
-      value: loan["Interest Rate"],
+      value: loan.interestRate,
     },
     {
       icon: <Tag className="w-6 h-6 text-indigo-600" />,
-      // Note: Accessing "Max Loan Limit" based on your provided JSON structure
-      value: `$${loan["Max Loan Limit"]}`,
+      value: `$${loan.maxAmount}`,
       title: "Max Limit",
     },
   ];
@@ -74,15 +75,15 @@ const LoanDetails = () => {
         <div className="grid lg:grid-cols-3">
           <div className="lg:col-span-1 bg-gray-100 p-4">
             <img
-              src={loan["Images Upload"]?.[0]}
+              src={loan.images}
               className="w-full h-96 object-cover rounded-lg shadow-xl transform hover:scale-[1.01] transition duration-300"
-              alt={loan["Loan Title"]}
+              alt={loan.title}
             />
           </div>
 
           <div className="lg:col-span-2 p-8 md:p-12">
             <h1 className="text-5xl font-extrabold text-gray-900 mb-4 border-b pb-3">
-              {loan["Loan Title"]}
+              {loan.title}
             </h1>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
@@ -109,7 +110,7 @@ const LoanDetails = () => {
                 Loan Overview
               </h3>
               <p className="text-gray-600 leading-relaxed border-l-4 border-indigo-200 bg-indigo-50 pl-4 py-3">
-                {loan["Description"]}
+                {loan.description}
               </p>
             </div>
 
@@ -119,12 +120,16 @@ const LoanDetails = () => {
                 <span>Required Documents</span>
               </h3>
               <ul className="list-none space-y-2">
-                {loan["Required Documents"]?.map((doc, i) => (
+                {(Array.isArray(loan.requiredDocuments)
+                  ? loan.requiredDocuments
+                  : loan.requiredDocuments?.split(",") || []
+                ).map((doc, i) => (
                   <li
                     key={i}
                     className="flex items-start text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm"
                   >
-                    <span className="text-indigo-600 mr-3 mt-1">•</span> {doc}
+                    <span className="text-indigo-600 mr-3 mt-1">•</span>
+                    {doc}
                   </li>
                 ))}
               </ul>
@@ -136,7 +141,7 @@ const LoanDetails = () => {
                 <span>Flexible EMI Plans & Rates</span>
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {loan["EMI Plans"]?.map((plan, i) => (
+                {loan.emiPlans?.map((plan, i) => (
                   <div
                     key={i}
                     className="bg-white border border-indigo-200 rounded-lg p-4 shadow-md 

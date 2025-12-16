@@ -16,35 +16,26 @@ const AvailableLoans = ({ loans }) => {
               className="shadow-md p-6 rounded-lg bg-gray-50"
               whileHover={{ scale: 1.05 }}
             >
-              {/* IMAGE */}
               <img
-                src={loan["Images Upload"]?.[0]}
-                alt={loan["Loan Title"]}
+                src={loan.images}
+                alt={loan.title}
                 className="rounded-md mb-4 h-40 w-full object-cover"
               />
 
-              {/* TITLE */}
-              <h3 className="text-xl font-semibold">{loan["Loan Title"]}</h3>
+              <h3 className="text-xl font-semibold">{loan.title}</h3>
 
-              {/* DESCRIPTION */}
-              {/* <p className="text-gray-600 mt-2">{loan.Description}</p> */}
+              {/* <p className="text-gray-600 mt-2">{loan.description}</p> */}
 
-              {/* MAX LIMIT */}
-              <p className="mt-3 font-bold">
-                Max Limit: ${loan["Max Loan Limit"]}
-              </p>
+              <p className="mt-3 font-bold">Max Limit: ${loan.maxAmount}</p>
 
-              {/* INTEREST RATE */}
               <p className="text-sm text-gray-700 mt-1">
-                Interest Rate: {loan["Interest Rate"]}
+                Interest Rate: {loan.interestRate}
               </p>
 
-              {/* CATEGORY */}
               <p className="text-sm text-gray-600 mt-1">
-                Category: {loan.Category}
+                Category: {loan.category}
               </p>
 
-              {/* BUTTON */}
               <Link to={`/loans/${loan._id}`}>
                 <button className="mt-4 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                   View Details

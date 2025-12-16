@@ -2,7 +2,15 @@ import React from "react";
 import useAuth from "../../../hooks/useAuth";
 
 const MyProfileManager = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut()
+      .then()
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   if (loading) {
     return (
@@ -21,21 +29,23 @@ const MyProfileManager = () => {
       <h2 className="text-2xl font-bold mb-6">My Profile</h2>
 
       <div className="card bg-base-100 shadow-md">
-        <div className="card-body">
+        <div className="card-body ">
           {/* Profile Header */}
-          <div className="flex items-center gap-6">
-            <img
-              src={user.photoURL || "https://i.ibb.co/2kR5zq0/avatar.png"}
-              alt="Profile"
-              className="w-24 h-24 rounded-full border"
-            />
+          <div className="flex items-center">
+            <div className="flex items-center  gap-6">
+              <img
+                src={user.photoURL || "https://i.ibb.co/2kR5zq0/avatar.png"}
+                alt="Profile"
+                className="w-24 h-24 rounded-full border"
+              />
 
-            <div>
-              <h3 className="text-xl font-semibold">
-                {user.displayName || "Manager"}
-              </h3>
-              <p className="text-gray-500">{user.email}</p>
-              <span className="badge badge-primary mt-2">Manager</span>
+              <div>
+                <h3 className="text-xl font-semibold">
+                  {user.displayName || "Manager"}
+                </h3>
+                <p className="text-gray-500">{user.email}</p>
+                <span className="badge badge-primary mt-2">Manager</span>
+              </div>
             </div>
           </div>
 
@@ -63,6 +73,12 @@ const MyProfileManager = () => {
             />
           </div>
         </div>
+        <button
+          onClick={handleLogOut}
+          className="btn btn-error btn-sm text-white"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );

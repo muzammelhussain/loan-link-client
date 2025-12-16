@@ -72,6 +72,28 @@ const DashboardLayout = () => {
               </>
             )}
 
+            {role === "borrower" && (
+              <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Approve Riders"
+                    to="/dashboard/my-loans"
+                  >
+                    <span className="is-drawer-close:hidden">My Loans</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Approve Riders"
+                    to="/dashboard/my-profile"
+                  >
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
             {/* admin only links */}
             {role === "admin" && (
               <>

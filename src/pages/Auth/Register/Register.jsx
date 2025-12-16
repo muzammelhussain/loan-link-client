@@ -88,7 +88,6 @@ const Register = () => {
     const { name, email, password, role } = data;
     const photoFile = data.photo[0];
 
-    // ⛔ Password validation
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters!");
       setLoading(false);
@@ -106,11 +105,9 @@ const Register = () => {
     }
 
     try {
-      // 1️⃣ Register user in Firebase
       const result = await registerUser(email, password);
       const user = result.user;
 
-      // 2️⃣ Upload image to imgbb (fetch)
       const imgForm = new FormData();
       imgForm.append("image", photoFile);
 
@@ -125,14 +122,11 @@ const Register = () => {
 
       const imgData = await imgRes.json();
       const photoURL = imgData.data.url;
-
-      // 3️⃣ Update Firebase profile
       await updateUserProfile({
         displayName: name,
         photoURL: photoURL,
       });
 
-      // 4️⃣ Save user to database (fetch)
       const userInfo = {
         name,
         email,

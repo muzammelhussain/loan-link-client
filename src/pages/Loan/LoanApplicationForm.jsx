@@ -39,8 +39,8 @@ const LoanApplicationForm = () => {
   const onSubmit = async (data) => {
     const application = {
       loanId: id,
-      loanTitle: loan["Loan Title"], // FIXED
-      interestRate: loan["Interest Rate"], // FIXED
+      loanTitle: loan.title, // FIXED
+      interestRate: loan.interestRate, // FIXED
       userEmail: user.email,
 
       // User Input fields
@@ -56,8 +56,8 @@ const LoanApplicationForm = () => {
       notes: data.notes,
 
       // Initial Status
-      status: "pending",
-      applicationFeeStatus: "unpaid",
+      status: "Pending",
+      applicationFeeStatus: "Unpaid",
       appliedAt: new Date().toISOString(),
     };
     console.log(application);
@@ -66,7 +66,7 @@ const LoanApplicationForm = () => {
 
       toast.success("Loan Application Submitted successfully!");
       reset();
-      // navigate('/user-dashboard/my-applications');
+      navigate("/dashboard/my-loans");
     } catch (error) {
       console.error("Submission error:", error);
       toast.error("Failed to submit application. Please try again.");
@@ -103,7 +103,7 @@ const LoanApplicationForm = () => {
               </label>
               <input
                 readOnly
-                value={loan["Loan Title"]}
+                value={loan.title}
                 className="input input-bordered w-full bg-gray-100 cursor-not-allowed font-semibold"
               />
             </div>
@@ -115,7 +115,7 @@ const LoanApplicationForm = () => {
             </label>
             <input
               readOnly
-              value={loan["Interest Rate"]}
+              value={loan.interestRate}
               className="input input-bordered w-full bg-gray-100 cursor-not-allowed font-semibold"
             />
           </div>
