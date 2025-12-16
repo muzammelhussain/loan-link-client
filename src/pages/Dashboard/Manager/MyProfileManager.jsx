@@ -70,7 +70,6 @@ const MyProfileManager = () => {
 
 export default MyProfileManager;
 
-/* Reusable info card */
 const Info = ({ label, value }) => (
   <div className="bg-base-200 p-4 rounded-lg">
     <p className="text-xs text-gray-500">{label}</p>
