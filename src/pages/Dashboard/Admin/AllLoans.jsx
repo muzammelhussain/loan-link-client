@@ -17,7 +17,7 @@ const AllLoans = () => {
       return res.data;
     },
   });
-
+  console.log(loans);
   const toggleHome = async (id, value) => {
     try {
       await axiosInstance.patch(`/admin/loans/home/${id}`, {
@@ -72,14 +72,11 @@ const AllLoans = () => {
             {loans.map((loan) => (
               <tr key={loan._id}>
                 <td>
-                  <img
-                    src={loan["Images Upload"]?.[0]}
-                    className="w-14 rounded"
-                  />
+                  <img src={loan.images} className="w-14 rounded" />
                 </td>
-                <td>{loan["Loan Title"]}</td>
-                <td>{loan["Interest Rate"]}</td>
-                <td>{loan.Category}</td>
+                <td>{loan.title}</td>
+                <td>{loan.interestRate}</td>
+                <td>{loan.category}</td>
                 <td>{new Date(loan.date).toLocaleDateString()}</td>
                 <td>
                   <input

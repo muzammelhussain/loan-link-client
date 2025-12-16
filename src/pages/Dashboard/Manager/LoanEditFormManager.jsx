@@ -8,7 +8,7 @@ const LoanEditForm = ({ loan, closeModal, refetch }) => {
 
   const { register, handleSubmit, reset } = useForm();
 
-  // 🔹 Auto fill when loan data arrives
+  // Auto fill when loan data arrives
   useEffect(() => {
     if (loan) {
       reset({
@@ -40,7 +40,7 @@ const LoanEditForm = ({ loan, closeModal, refetch }) => {
     };
 
     try {
-      await axiosInstance.patch(`/admin/loans/${loan._id}`, updatedLoan);
+      await axiosInstance.patch(`/manager/loans/${loan._id}`, updatedLoan);
       toast.success("Loan updated successfully");
       closeModal();
       refetch();

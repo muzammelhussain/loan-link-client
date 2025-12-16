@@ -18,6 +18,7 @@ const AllLoansPage = () => {
       return res.data;
     },
   });
+  console.log(loans);
 
   if (isLoading) return <p>Loading loans...</p>;
   if (isError) return <p>Failed to load loans. Please try again.</p>;
