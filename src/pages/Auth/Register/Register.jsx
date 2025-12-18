@@ -134,7 +134,7 @@ const Register = () => {
         photoURL,
       };
 
-      await fetch("http://localhost:3000/users", {
+      await fetch("https://loan-link-server-eight.vercel.app/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

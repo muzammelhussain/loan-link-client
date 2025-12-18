@@ -17,7 +17,7 @@ const HeroSection = () => {
             process.
           </p>
 
-          <Link to="/apply-loan">
+          <Link to="all-loan-page">
             <button className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition">
               Apply for Loan
             </button>

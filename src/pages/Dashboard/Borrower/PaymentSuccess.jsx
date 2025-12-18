@@ -20,7 +20,7 @@ const PaymentSuccess = () => {
 
   return (
     <div>
-      <h1>payment is sccessed</h1>
+      <h1>payment is successfully paid</h1>
     </div>
   );
 };

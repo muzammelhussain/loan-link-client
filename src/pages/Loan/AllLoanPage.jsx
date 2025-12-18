@@ -17,7 +17,8 @@ const AllLoansPage = () => {
     keepPreviousData: true,
   });
 
-  if (isLoading) return <p>Loading loans...</p>;
+  if (isLoading)
+    return <span className="loading loading-dots loading-xl"></span>;
   if (isError) return <p>Failed to load loans</p>;
 
   const loans = data?.loans || [];

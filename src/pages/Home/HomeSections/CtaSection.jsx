@@ -24,7 +24,7 @@ const CtaSection = () => {
           Start your application now and get approval in less than 24 hours.
         </p>
 
-        <Link to="/apply-loan">
+        <Link to="all-loan-page">
           <motion.button
             whileHover={{ scale: 1.07 }}
             whileTap={{ scale: 0.95 }}

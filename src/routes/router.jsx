@@ -26,6 +26,7 @@ import MyProfileManager from "../pages/Dashboard/Manager/MyProfileManager";
 import ApprovedLoans from "../pages/Dashboard/Manager/ApprovedLoans";
 import PaymentSuccess from "../pages/Dashboard/Borrower/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/Borrower/PaymentCancel";
+import Page404 from "../pages/Page404";
 
 export const router = createBrowserRouter([
   {
@@ -170,5 +171,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/*",
+    Component: Page404,
   },
 ]);

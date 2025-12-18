@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
-
+import logo from "../../../assets/logo2.png";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const handleLogOut = () => {
@@ -191,7 +191,12 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Loan-Link</a>
+        <Link to="/">
+          <span className="flex justify-center items-center">
+            <img className="h-10 w-10" src={logo} alt="" />
+            <p>Loan Link</p>
+          </span>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
