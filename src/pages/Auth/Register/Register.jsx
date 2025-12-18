@@ -210,7 +210,7 @@ const Register = () => {
               className="select select-bordered w-full mt-1"
             >
               <option value="">Select Role</option>
-              <option value="borrower">Borrower</option>
+              <option value="user">Borrower</option>
               <option value="manager">Manager</option>
             </select>
             {errors.role && (

@@ -54,7 +54,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Assigned Deliveries"
+                    data-tip="user dashboard"
                     to="/dashboard/my-loans"
                   >
                     <span className="is-drawer-close:hidden">My Loans</span>
@@ -63,7 +63,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Assigned Deliveries"
+                    data-tip="user dashboard"
                     to="/dashboard/my-profile"
                   >
                     <span className="is-drawer-close:hidden">My Profile</span>
@@ -72,7 +72,7 @@ const DashboardLayout = () => {
               </>
             )}
 
-            {role === "borrower" && (
+            {/* {role === "borrower" && (
               <>
                 <li>
                   <NavLink
@@ -93,14 +93,14 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
               </>
-            )}
+            )} */}
             {/* admin only links */}
             {role === "admin" && (
               <>
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Approve Riders"
+                    data-tip="admin dashboard"
                     to="/dashboard/loan-applications"
                   >
                     <span className="is-drawer-close:hidden">
@@ -111,7 +111,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Assign Riders"
+                    data-tip="admin dashboard"
                     to="/dashboard/all-loans-admin"
                   >
                     <span className="is-drawer-close:hidden">All Loans</span>
@@ -120,7 +120,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Users Management"
+                    data-tip="admin dashboard"
                     to="/dashboard/manage-users"
                   >
                     <span className="is-drawer-close:hidden">Manage Users</span>
@@ -134,7 +134,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Approve Riders"
+                    data-tip="manager dashboard"
                     to="/dashboard/add-loan"
                   >
                     <span className="is-drawer-close:hidden">Add Loan</span>
@@ -143,7 +143,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Assign Riders"
+                    data-tip="manager dashboard"
                     to="/dashboard/manage-loan"
                   >
                     <span className="is-drawer-close:hidden">Manage Loans</span>
@@ -152,7 +152,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Users Management"
+                    data-tip="manager dashboard"
                     to="/dashboard/pending-application"
                   >
                     <span className="is-drawer-close:hidden">
@@ -161,7 +161,7 @@ const DashboardLayout = () => {
                   </NavLink>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Users Management"
+                    data-tip="manager dashboard"
                     to="/dashboard/approved-application"
                   >
                     <span className="is-drawer-close:hidden">
@@ -170,7 +170,7 @@ const DashboardLayout = () => {
                   </NavLink>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Users Management"
+                    data-tip="manager dashboard"
                     to="/dashboard/my-profile-manager"
                   >
                     <span className="is-drawer-close:hidden">My Profile</span>

@@ -89,7 +89,7 @@ const AddLoan = () => {
         <div className="grid grid-cols-2 gap-4">
           <Input
             label="Interest Rate (%)"
-            type="number"
+            type="text"
             register={register("interestRate", { required: true })}
           />
           <Input

@@ -24,6 +24,8 @@ import ManageLoans from "../pages/Dashboard/Manager/ManageLoans";
 import PendingLoanApplications from "../pages/Dashboard/Manager/PendingLoanApplications";
 import MyProfileManager from "../pages/Dashboard/Manager/MyProfileManager";
 import ApprovedLoans from "../pages/Dashboard/Manager/ApprovedLoans";
+import PaymentSuccess from "../pages/Dashboard/Borrower/PaymentSuccess";
+import PaymentCancel from "../pages/Dashboard/Borrower/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
@@ -94,6 +96,14 @@ export const router = createBrowserRouter([
       {
         path: "my-profile",
         Component: MyProfile,
+      },
+      {
+        path: "payment-success",
+        Component: PaymentSuccess,
+      },
+      {
+        path: "payment-cancelled",
+        Component: PaymentCancel,
       },
       {
         path: "manage-users",

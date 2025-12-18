@@ -135,7 +135,7 @@ const ManageUsers = () => {
               defaultValue={roleUser.role}
               onChange={(e) => setNewRole(e.target.value)}
             >
-              <option value="borrower">Borrower</option>
+              <option value="user">User</option>
               <option value="manager">Manager</option>
               <option value="admin">Admin</option>
             </select>
