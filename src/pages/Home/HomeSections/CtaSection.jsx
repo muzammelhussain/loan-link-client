@@ -6,7 +6,7 @@ const CtaSection = () => {
   return (
     <section className="py-24 text-center bg-gradient-to-r from-blue-600 to-blue-500 text-white relative overflow-hidden">
       {/* Decorative Blur Effects */}
-      <div className="absolute top-0 left-1/3 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-0 left-1/3 w-72 h-72 bg-base-200/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-blue-300/20 rounded-full blur-3xl"></div>
 
       <motion.div
@@ -28,8 +28,8 @@ const CtaSection = () => {
           <motion.button
             whileHover={{ scale: 1.07 }}
             whileTap={{ scale: 0.95 }}
-            className="mt-8 px-10 py-4 bg-white text-blue-600 font-semibold rounded-full
-            shadow-lg hover:bg-gray-100 transition-all duration-300"
+            className="mt-8 px-10 py-4 bg-base-200 text-blue-600 font-semibold rounded-full
+            shadow-lg hover:bg-base-200 transition-all duration-300"
           >
             Apply Now
           </motion.button>

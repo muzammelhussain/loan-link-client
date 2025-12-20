@@ -30,7 +30,7 @@ const LoanApplicationModal = ({ selectedLoan, onClose }) => {
       case "Rejected":
         return "bg-red-100 text-red-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-base-200 text-gray-800";
     }
   };
 
@@ -67,7 +67,7 @@ const LoanApplicationModal = ({ selectedLoan, onClose }) => {
     >
       {/* Modal Box with Spring Animation */}
       <motion.div
-        className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden"
+        className="bg-base-200 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden"
         variants={modalVariants}
         onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside modal
       >
@@ -76,7 +76,7 @@ const LoanApplicationModal = ({ selectedLoan, onClose }) => {
             Application Details
           </h3>
 
-          <div className="space-y-3 text-gray-700">
+          <div className="space-y-3 text-base-content opacity-80">
             {/* User and Email */}
             <DetailRow label="User" value={firstName} />
             <DetailRow label="Email" value={userEmail} />
@@ -118,7 +118,7 @@ const LoanApplicationModal = ({ selectedLoan, onClose }) => {
               <strong className="block text-sm font-medium mb-1">
                 Reason:
               </strong>
-              <p className="p-3 bg-gray-50 rounded text-sm whitespace-pre-wrap border border-gray-200">
+              <p className="p-3 bg-base-200 rounded text-sm whitespace-pre-wrap border border-gray-200">
                 {reason || "No reason provided."}
               </p>
             </div>

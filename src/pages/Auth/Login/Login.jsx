@@ -31,7 +31,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
       <div className="card bg-base-100 w-full max-w-sm shadow-2xl p-6 border rounded-2xl">
         <h3 className="text-3xl font-bold text-center text-blue-600">
           Welcome Back

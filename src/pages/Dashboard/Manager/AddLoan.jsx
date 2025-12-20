@@ -17,36 +17,27 @@ const AddLoan = () => {
     name: "emiPlans",
   });
 
-  // {
-  //     "Loan Title": "Property Renovation Loan",
-  //     "Description": "Fund your home improvements and upgrades with flexible tenures.",
-  //     "Category": "Home Loan",
-  //     "Interest Rate": "8.0%",
-  //     "Max Loan Limit": 60000,
-  //     "Required Documents": [
-  //       "Architect's Plan/Estimate",
-  //       "Existing Property Documents",
-  //       "KYC of Applicant"
-  //     ],
-  //     "EMI Plans": [
-  //       { "duration": "5 Years", "rate": "8.0%" },
-  //       { "duration": "7 Years", "rate": "8.25%" }
-  //     ],
-  //     "Images Upload": ["https://i.ibb.co.com/Z1Tk7NYZ/images9.jpg"],
-  //     "Show on Home toggle": true
-  //   },
-
   const onSubmit = async (data) => {
+    const documentsArray = Array.isArray(data.requiredDocuments)
+      ? data.requiredDocuments
+      : data.requiredDocuments
+      ? data.requiredDocuments
+          .split(",")
+          .map((doc) => doc.trim())
+          .filter((doc) => doc.length > 0)
+      : [];
+
     const loanData = {
       title: data.title,
       description: data.description,
       category: data.category,
       interestRate: Number(data.interestRate),
       maxAmount: Number(data.maxAmount),
-      requiredDocuments: data.requiredDocuments,
+      requiredDocuments: documentsArray,
       images: data.image,
       emiPlans: data.emiPlans.map((plan) => ({
         duration: plan.duration,
+        // Ensure rate is a number, handling empty/invalid input if possible in a real app
         rate: Number(plan.rate),
       })),
       showOnHome: data.showOnHome,
@@ -63,30 +54,29 @@ const AddLoan = () => {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Add Loan</h2>
+    <div className="p-4 sm:p-6 max-w-3xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4 text-center sm:text-left">
+        Add Loan
+      </h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {" "}
         {/* Loan Title */}
         <Input
           label="Loan Title"
           register={register("title", { required: true })}
         />
-
         {/* Description */}
         <Textarea
           label="Description"
           register={register("description", { required: true })}
         />
-
         {/* Category */}
         <Input
           label="Category"
           register={register("category", { required: true })}
         />
-
-        {/* Interest Rate & Max Amount */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
             label="Interest Rate (%)"
             type="text"
@@ -98,89 +88,92 @@ const AddLoan = () => {
             register={register("maxAmount", { required: true })}
           />
         </div>
-
         {/* Required Documents */}
         <Textarea
-          label="Required Documents"
+          label="Required Documents (Separate by comma, e.g., NID, Bank Statement)"
           placeholder="NID, Bank Statement, Salary Slip"
           register={register("requiredDocuments")}
         />
-
         {/* Image */}
         <Input label="Image URL" register={register("image")} />
-
         {/* EMI Plans */}
         <div>
-          <h3 className="font-bold mb-2">EMI Plans</h3>
+          <h3 className="font-bold mb-3 text-lg">EMI Plans</h3>
           {fields.map((field, index) => (
-            <div key={field.id} className="grid grid-cols-2 gap-2 mb-2">
+            <div
+              key={field.id}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 p-3 border rounded-lg bg-base-200"
+            >
               <input
-                className="input input-bordered"
-                placeholder="Duration (12 Months)"
+                className="input input-bordered w-full"
+                placeholder="Duration (e.g., 12 Months)"
                 {...register(`emiPlans.${index}.duration`, { required: true })}
               />
               <input
-                type=""
-                className="input input-bordered"
+                type="text"
+                className="input input-bordered w-full"
                 placeholder="Rate (%)"
                 {...register(`emiPlans.${index}.rate`, { required: true })}
               />
               <button
                 type="button"
-                className="btn btn-error btn-sm col-span-2"
+                className="btn btn-error btn-sm col-span-full" // full width button
                 onClick={() => remove(index)}
               >
-                Remove
+                Remove Plan
               </button>
             </div>
           ))}
           <button
             type="button"
-            className="btn btn-outline btn-sm"
+            className="btn btn-outline btn-sm mt-2"
             onClick={() => append({ duration: "", rate: "" })}
           >
-            + Add EMI Plan
+            + Add New EMI Plan
           </button>
         </div>
-
-        {/* Show on Home */}
-        <label className="flex items-center gap-2">
+        <label className="flex items-center gap-3 cursor-pointer">
           <input
             type="checkbox"
             className="toggle toggle-primary"
             {...register("showOnHome")}
           />
-          <span>Show on Home</span>
+          <span className="label-text font-medium">Show on Home Page</span>
         </label>
-
         {/* Submit */}
-        <button className="btn btn-primary w-full">Add Loan</button>
+        <button className="btn btn-primary w-full mt-6">Add Loan</button>
       </form>
     </div>
   );
 };
 
 export default AddLoan;
-/* Reusable Inputs */
+
 const Input = ({ label, register, type = "text", placeholder }) => (
-  <div className="form-control">
-    <label className="label">{label}</label>
+  <div className="form-control w-full">
+    {" "}
+    <label className="label">
+      <span className="label-text font-medium">{label}</span>
+    </label>
     <input
       type={type}
-      placeholder={placeholder}
+      placeholder={placeholder || `Enter ${label}`}
       {...register}
-      className="input input-bordered"
+      className="input input-bordered w-full"
     />
   </div>
 );
 
 const Textarea = ({ label, register, placeholder }) => (
-  <div className="form-control">
-    <label className="label">{label}</label>
+  <div className="form-control w-full">
+    {" "}
+    <label className="label">
+      <span className="label-text font-medium">{label}</span>
+    </label>
     <textarea
-      placeholder={placeholder}
+      placeholder={placeholder || `Enter ${label}`}
       {...register}
-      className="textarea textarea-bordered"
+      className="textarea textarea-bordered w-full h-24" // Added height
     />
   </div>
 );

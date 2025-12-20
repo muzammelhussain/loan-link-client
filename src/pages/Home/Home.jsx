@@ -12,13 +12,15 @@ import CtaSection from "./HomeSections/CtaSection";
 const Home = () => {
   const axiosInstance = useAxios();
 
-  const { data: loans = [] } = useQuery({
+  const { data: loans = [], isLoading } = useQuery({
     queryKey: ["available-loans"],
     queryFn: async () => {
       const res = await axiosInstance.get("/loans/latest");
       return res.data;
     },
   });
+  if (isLoading)
+    return <span className="loading loading-dots loading-xl"></span>;
 
   return (
     <div>

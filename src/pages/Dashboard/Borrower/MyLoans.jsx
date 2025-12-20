@@ -65,11 +65,11 @@ const MyLoans = () => {
   };
 
   if (isLoading) {
-    return <div className="text-center py-10">Loading...</div>;
+    return <span className="loading loading-dots loading-xl"></span>;
   }
 
   return (
-    <div className="bg-white rounded-xl shadow p-6">
+    <div className="bg-base-100 rounded-xl shadow p-6">
       <h2 className="text-3xl font-bold mb-6">My Loans</h2>
 
       <div className="overflow-x-auto">
@@ -201,7 +201,7 @@ const MyLoans = () => {
 export default MyLoans;
 const Modal = ({ title, children, onClose, onConfirm }) => (
   <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div className="bg-white rounded-xl p-6 w-96 space-y-4">
+    <div className="bg-base-200 rounded-xl p-6 w-96 space-y-4">
       <h3 className="text-xl font-bold">{title}</h3>
       <div>{children}</div>
 

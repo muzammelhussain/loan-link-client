@@ -1,5 +1,4 @@
 import React from "react";
-// Import the image file (Logo now holds the image URL string)
 import logoImage from "../../../assets/logo2.png";
 import {
   FaFacebook,
@@ -21,145 +20,98 @@ const Footer = () => {
   const linkGroups = [
     {
       title: "Services",
-      links: [
-        { name: "Personal Loans", href: "#" },
-        { name: "Business Loans", href: "#" },
-        { name: "Microfinance", href: "#" },
-        { name: "Lending Education", href: "#" },
-      ],
+      links: ["Personal Loans", "Business Loans", "Microfinance", "Education"],
     },
     {
       title: "About",
-      links: [
-        { name: "Our Mission", href: "#" },
-        { name: "Careers", href: "#" },
-        { name: "Impact Reports", href: "#" },
-        { name: "Our Team", href: "#" },
-      ],
+      links: ["Our Mission", "Careers", "Impact Reports", "Our Team"],
     },
     {
       title: "Support",
-      links: [
-        { name: "FAQs", href: "#" },
-        { name: "Contact Us", href: "#" },
-        { name: "Live Chat", href: "#" },
-        { name: "Documentation", href: "#" },
-      ],
+      links: ["FAQs", "Contact Us", "Live Chat", "Documentation"],
     },
   ];
 
   return (
-    <div className="w-full">
-      <footer className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-md">
-            <strong className="block text-center text-xl font-bold text-gray-900 sm:text-3xl">
-              Join the LoanLink Movement. Get our Quarterly Impact Update.
-            </strong>
+    <footer
+      className="bg-base-200 text-base-content
+    "
+    >
+      <div className="w-full mx-auto px-4 py-16">
+        {/* Newsletter */}
+        <div className="text-center max-w-xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold">
+            Join the LoanLink Movement
+          </h2>
+          <p className="mt-2 opacity-70">
+            Get our quarterly impact updates directly in your inbox.
+          </p>
 
-            <form className="mt-6">
-              <div className="relative max-w-lg">
-                <label className="sr-only" htmlFor="email-newsletter">
-                  Email
-                </label>
+          <form className="mt-6 flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              required
+              placeholder="name@example.com"
+              className="input input-bordered w-full"
+            />
+            <button className="btn btn-primary">Subscribe</button>
+          </form>
+        </div>
 
-                <input
-                  className="w-full rounded-full border-gray-200 bg-gray-100 p-4 pe-32 text-sm font-medium"
-                  id="email-newsletter"
-                  type="email"
-                  placeholder="name@example.com"
-                  required
-                />
+        {/* Main Footer */}
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Left */}
+          <div className="text-center lg:text-left">
+            <img
+              src={logoImage}
+              alt="LoanLink Logo"
+              className="h-24 mx-auto lg:mx-0"
+            />
 
-                <button
-                  type="submit"
-                  className="absolute end-1 top-1/2 -translate-y-1/2 rounded-full bg-blue-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-blue-700"
+            <p className="mt-4 max-w-md mx-auto lg:mx-0 opacity-80">
+              LoanLink connects capital with underserved communities, enabling
+              sustainable growth through ethical micro-loans.
+            </p>
+
+            <div className="mt-6 flex justify-center lg:justify-start gap-4">
+              {socialLinks.map(({ icon: Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="btn btn-circle btn-outline"
+                  aria-label={label}
                 >
-                  Subscribe
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-32">
-            <div className="mx-auto max-w-sm lg:max-w-none">
-              <div className="flex items-center justify-center lg:justify-start mb-4">
-                {/* 💡 FIX: Use <img> tag with the imported URL */}
-                <img
-                  src={logoImage}
-                  alt="LoanLink NGO Logo"
-                  className="h-32 w-auto"
-                />
-              </div>
-
-              <p className="mt-4 text-center text-gray-500 lg:text-left lg:text-lg">
-                LoanLink is a non-profit organization dedicated to connecting
-                capital with underserved communities, fostering sustainable
-                economic growth and dignity through ethical micro-loans.
-              </p>
-
-              <div className="mt-6 flex justify-center gap-4 lg:justify-start">
-                {socialLinks.map(({ icon: Icon, href, label }) => (
-                  <a
-                    key={label}
-                    className="text-gray-700 transition hover:text-blue-600"
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <span className="sr-only">{label}</span>
-                    <Icon className="size-6" aria-hidden="true" />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-8 text-center lg:grid-cols-3 lg:text-left">
-              {linkGroups.map((group) => (
-                <div key={group.title}>
-                  <strong className="font-medium text-gray-900">
-                    {group.title}
-                  </strong>
-                  <ul className="mt-6 space-y-1">
-                    {group.links.map((link) => (
-                      <li key={link.name}>
-                        <a
-                          className="text-gray-700 transition hover:text-blue-600/90"
-                          href={link.href}
-                        >
-                          {link.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                  <Icon className="text-lg" />
+                </a>
               ))}
             </div>
           </div>
 
-          <div className="mt-16 border-t border-gray-100 pt-8">
-            <p className="text-center text-xs/relaxed text-gray-500">
-              © Copyright {new Date().getFullYear()} **LoanLink NGO**. All
-              rights reserved.
-              <br />
-              <a
-                href="#"
-                className="text-gray-700 transition hover:text-blue-600/90"
-              >
-                Privacy Policy
-              </a>
-              {" | "}
-              <a
-                href="#"
-                className="text-gray-700 transition hover:text-blue-600/90"
-              >
-                Terms of Service
-              </a>
-            </p>
+          {/* Links */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-center sm:text-left">
+            {linkGroups.map((group) => (
+              <div key={group.title}>
+                <h4 className="font-semibold">{group.title}</h4>
+                <ul className="mt-4 space-y-2 opacity-80">
+                  {group.links.map((link) => (
+                    <li key={link}>
+                      <a href="#" className="hover:text-primary">
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
-      </footer>
-    </div>
+
+        {/* Bottom */}
+        <div className="mt-12 border-t border-base-300 pt-6 text-center text-sm opacity-70">
+          © {new Date().getFullYear()} LoanLink NGO — All rights reserved.
+        </div>
+      </div>
+    </footer>
   );
 };
 

@@ -74,49 +74,49 @@ const LoanApplicationForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white shadow-2xl p-8 md:p-12 rounded-xl my-10 border border-indigo-100">
+    <div className="max-w-3xl mx-auto bg-base-200 shadow-2xl p-8 md:p-12 rounded-xl my-10 border border-indigo-100">
       <h2 className="text-4xl font-extrabold mb-8 text-center text-indigo-700 border-b pb-3">
         Loan Application Form
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+        <div className="bg-base-200 p-4 rounded-lg border border-indigo-200">
           <h3 className="text-xl font-semibold mb-3 text-indigo-800">
             Loan Details
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-base-content opacity-80">
                 Email
               </label>
               <input
                 readOnly
                 value={user.email}
-                className="input input-bordered w-full bg-gray-100 cursor-not-allowed"
+                className="input input-bordered w-full bg-base-200 cursor-not-allowed"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-base-content opacity-80">
                 Loan Title
               </label>
               <input
                 readOnly
                 value={loan.title}
-                className="input input-bordered w-full bg-gray-100 cursor-not-allowed font-semibold"
+                className="input input-bordered w-full bg-base-200 cursor-not-allowed font-semibold"
               />
             </div>
           </div>
 
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-base-content opacity-80">
               Interest Rate (%)
             </label>
             <input
               readOnly
               value={loan.interestRate}
-              className="input input-bordered w-full bg-gray-100 cursor-not-allowed font-semibold"
+              className="input input-bordered w-full bg-base-200 cursor-not-allowed font-semibold"
             />
           </div>
         </div>
@@ -127,7 +127,7 @@ const LoanApplicationForm = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-base-content opacity-80">
               First Name *
             </label>
             <input
@@ -137,7 +137,7 @@ const LoanApplicationForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-base-content opacity-80">
               Last Name *
             </label>
             <input
@@ -147,7 +147,7 @@ const LoanApplicationForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-base-content opacity-80">
               Contact Number *
             </label>
             <input
@@ -161,7 +161,7 @@ const LoanApplicationForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-base-content opacity-80">
               National ID / Passport *
             </label>
             <input
@@ -171,7 +171,7 @@ const LoanApplicationForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-base-content opacity-80">
               Income Source *
             </label>
             <input
@@ -182,7 +182,7 @@ const LoanApplicationForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-base-content opacity-80">
               Monthly Income ($) *
             </label>
             <input
@@ -195,7 +195,7 @@ const LoanApplicationForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-base-content opacity-80">
               Requested Loan Amount ($) *
             </label>
             <input
@@ -209,7 +209,7 @@ const LoanApplicationForm = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-base-content opacity-80">
             Address *
           </label>
           <textarea
@@ -219,7 +219,7 @@ const LoanApplicationForm = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-base-content opacity-80">
             Reason for Loan *
           </label>
           <textarea
@@ -230,7 +230,7 @@ const LoanApplicationForm = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-base-content opacity-80">
             Extra Notes (Optional)
           </label>
           <textarea

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import useAxios from "../../../hooks/useAxios";
 import toast from "react-hot-toast";
 import LoanEditFormManager from "../Manager/LoanEditFormManager";
+
 const ManageLoans = () => {
   const axiosInstance = useAxios();
   const queryClient = useQueryClient();
@@ -12,6 +13,7 @@ const ManageLoans = () => {
   const [search, setSearch] = useState("");
   const [deleteLoan, setDeleteLoan] = useState(null);
   const [selectedLoan, setSelectedLoan] = useState(null);
+
   // Fetch loans
   const {
     data: loans = [],
@@ -41,40 +43,50 @@ const ManageLoans = () => {
       loan.title.toLowerCase().includes(search.toLowerCase()) ||
       loan.category.toLowerCase().includes(search.toLowerCase())
   );
-  console.log(filteredLoans);
+
   if (isLoading) {
-    return <p className="text-center mt-10">Loading loans...</p>;
+    return <span className="loading loading-dots loading-xl"></span>;
   }
 
+  // Handle delete confirmation
+  const handleDelete = () => {
+    if (deleteLoan) {
+      deleteMutation.mutate(deleteLoan._id);
+    }
+  };
+
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Manage Loans</h2>
+    // Adjust padding for better mobile fit
+    <div className="p-4 sm:p-6">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4">Manage Loans</h2>
 
-      {/* Search */}
-      <input
-        className="input input-bordered mb-4 w-full max-w-md"
-        placeholder="Search by title or category"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      {/* Search - Centered on small screens, full width up to max-w-md */}
+      <div className="flex justify-center sm:justify-start">
+        <input
+          className="input input-bordered mb-6 w-full max-w-md"
+          placeholder="Search by title or category"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="table table-zebra">
-          <thead>
+      {/* Table - Crucial for mobile scrolling */}
+      <div className="overflow-x-auto shadow-xl rounded-lg">
+        <table className="table w-full table-zebra">
+          <thead className="bg-base-200">
             <tr>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Interest</th>
-              <th>Category</th>
-              <th>Actions</th>
+              <th className="py-3 text-sm">Image</th>
+              <th className="py-3 text-sm">Title</th>
+              <th className="py-3 text-sm">Interest</th>
+              <th className="py-3 text-sm">Category</th>
+              <th className="py-3 text-sm">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {filteredLoans.map((loan) => (
               <tr key={loan._id}>
-                <td>
+                <td className="py-2">
                   <img
                     src={loan.images}
                     alt={loan.title}
@@ -82,16 +94,16 @@ const ManageLoans = () => {
                   />
                 </td>
 
-                <td className="font-semibold">{loan.title}</td>
-                <td>{loan.interestRate}%</td>
-                <td>{loan.category}</td>
+                <td className="font-semibold text-sm py-2">{loan.title}</td>
+                <td className="text-sm py-2">{loan.interestRate}%</td>
+                <td className="text-sm py-2">{loan.category}</td>
 
-                <td className="space-x-2">
+                <td className="space-x-1 py-2 whitespace-nowrap">
                   <button
                     className="btn btn-xs btn-info"
                     onClick={() => setSelectedLoan(loan)}
                   >
-                    Update
+                    Edit
                   </button>
 
                   <button
@@ -105,20 +117,39 @@ const ManageLoans = () => {
             ))}
           </tbody>
         </table>
+
+        {filteredLoans.length === 0 && (
+          <div className="text-center p-6 text-gray-500 bg-base-200">
+            No loans found matching your search.
+          </div>
+        )}
       </div>
 
+      {/* Edit Modal */}
       {selectedLoan && (
-        <dialog open className="modal">
-          <div className="modal-box max-w-2xl">
-            <h3 className="font-bold text-xl mb-4">Edit Loan</h3>
+        <dialog open className="modal modal-middle sm:modal-bottom">
+          {" "}
+          {/* Adjusted modal position for mobile */}
+          <div className="modal-box max-w-full sm:max-w-2xl">
+            <h3 className="font-bold text-xl mb-4">
+              Edit Loan: {selectedLoan.title}
+            </h3>
 
             <LoanEditFormManager
               loan={selectedLoan}
               closeModal={() => setSelectedLoan(null)}
               refetch={refetch}
             />
-          </div>
 
+            <div className="modal-action mt-4">
+              <button
+                className="btn btn-sm btn-circle absolute right-2 top-2"
+                onClick={() => setSelectedLoan(null)}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
           <form method="dialog" className="modal-backdrop">
             <button onClick={() => setSelectedLoan(null)}>close</button>
           </form>
@@ -127,13 +158,14 @@ const ManageLoans = () => {
 
       {/* Delete Confirmation Modal */}
       {deleteLoan && (
-        <dialog open className="modal">
+        <dialog open className="modal modal-middle">
           <div className="modal-box">
-            <h3 className="font-bold text-lg">Delete Loan</h3>
+            <h3 className="font-bold text-lg">Confirm Deletion</h3>
 
-            <p className="mt-2">
-              Are you sure you want to delete{" "}
-              <span className="font-semibold">{deleteLoan.title}</span>?
+            <p className="mt-4">
+              Are you absolutely sure you want to delete the loan:{" "}
+              <span className="font-semibold">{deleteLoan.title}</span>? This
+              action cannot be undone.
             </p>
 
             <div className="modal-action">
@@ -146,12 +178,19 @@ const ManageLoans = () => {
 
               <button
                 className="btn btn-error"
-                onClick={() => deleteMutation.mutate(deleteLoan._id)}
+                onClick={handleDelete}
+                disabled={deleteMutation.isLoading}
               >
-                Delete
+                {deleteMutation.isLoading
+                  ? "Deleting..."
+                  : "Delete Permanently"}
               </button>
             </div>
           </div>
+
+          <form method="dialog" className="modal-backdrop">
+            <button onClick={() => setDeleteLoan(null)}>close</button>
+          </form>
         </dialog>
       )}
     </div>

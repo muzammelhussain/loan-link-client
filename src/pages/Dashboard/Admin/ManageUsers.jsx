@@ -54,7 +54,7 @@ const ManageUsers = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-6">
+    <div className="bg-base-200 rounded-xl shadow p-6">
       <h2 className="text-3xl font-bold mb-6">Manage Users</h2>
 
       <div className="overflow-x-auto">

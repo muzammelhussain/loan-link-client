@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import logo from "../../../assets/logo2.png";
+import ThemeToggle from "../../../components/theme/ThemeToggle";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const handleLogOut = () => {
@@ -42,7 +43,7 @@ const Navbar = () => {
   );
   return (
     // <div>
-    //   <header class="bg-white">
+    //   <header class="bg-base-200">
     //     <div class="mx-auto flex h-16 max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
     //       <a class="block text-teal-600" href="#">
     //         <span class="sr-only">Home</span>
@@ -134,14 +135,14 @@ const Navbar = () => {
     //             </a>
 
     //             <a
-    //               class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+    //               class="hidden rounded-md bg-base-200 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
     //               href="#"
     //             >
     //               Register
     //             </a>
     //           </div>
 
-    //           <button class="block rounded-sm bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
+    //           <button class="block rounded-sm bg-base-200 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
     //             <span class="sr-only">Toggle menu</span>
     //             <svg
     //               xmlns="http://www.w3.org/2000/svg"
@@ -232,6 +233,7 @@ const Navbar = () => {
             </button>
           </div>
         )}
+        <ThemeToggle></ThemeToggle>
       </div>
     </div>
   );

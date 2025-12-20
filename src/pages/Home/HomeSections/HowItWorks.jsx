@@ -13,25 +13,31 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-100 px-6">
+    <section className="py-20 px-6 bg-base-200">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-10">How LoanLink Works</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-10 text-base-content">
+          How LoanLink Works
+        </h2>
 
-        <div className="grid md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white shadow p-6 rounded-lg"
+              className="bg-base-100 shadow-lg rounded-xl p-6"
             >
-              <div className="text-blue-600 text-4xl font-extrabold">
+              <div className="text-primary text-4xl font-extrabold">
                 {item.step}
               </div>
-              <h3 className="text-xl font-semibold mt-3">{item.title}</h3>
-              <p className="text-gray-600 mt-2">{item.desc}</p>
+
+              <h3 className="text-xl font-semibold mt-3 text-base-content">
+                {item.title}
+              </h3>
+
+              <p className="mt-2 text-sm opacity-80">{item.desc}</p>
             </motion.div>
           ))}
         </div>

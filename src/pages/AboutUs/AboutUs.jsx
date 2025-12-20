@@ -28,7 +28,7 @@ const AboutUs = () => {
         <div className="grid md:grid-cols-2 gap-8">
           {/* Vision */}
           <motion.div
-            className="p-6 bg-white shadow-lg rounded-xl"
+            className="p-6 bg-base-200 shadow-lg rounded-xl"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -42,7 +42,7 @@ const AboutUs = () => {
 
           {/* Mission */}
           <motion.div
-            className="p-6 bg-white shadow-lg rounded-xl"
+            className="p-6 bg-base-200 shadow-lg rounded-xl"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -58,7 +58,7 @@ const AboutUs = () => {
 
         {/* What We Provide */}
         <motion.div
-          className="mt-12 p-6 bg-white shadow-lg rounded-xl"
+          className="mt-12 p-6 bg-base-200 shadow-lg rounded-xl"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

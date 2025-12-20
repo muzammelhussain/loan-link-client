@@ -17,7 +17,7 @@ const ContactUs = () => {
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-white bg-opacity-50 backdrop-blur-xl shadow-lg p-8 rounded-2xl"
+          className="bg-base-200 bg-opacity-50 backdrop-blur-xl shadow-lg p-8 rounded-2xl"
         >
           <h2 className="text-4xl font-bold text-gray-800">Contact Us</h2>
           <p className="text-gray-600 mt-3">
@@ -48,7 +48,7 @@ const ContactUs = () => {
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-white bg-opacity-50 backdrop-blur-xl shadow-lg p-8 rounded-2xl"
+          className="bg-base-200 bg-opacity-50 backdrop-blur-xl shadow-lg p-8 rounded-2xl"
         >
           <h3 className="text-2xl font-semibold mb-4">Send Us a Message</h3>
 

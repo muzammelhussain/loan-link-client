@@ -24,9 +24,7 @@ const LoanDetails = () => {
 
   if (loading || isLoanLoading) {
     return (
-      <h2 className="text-center py-20 text-2xl font-semibold text-gray-700">
-        Loading Loan Details...
-      </h2>
+      <span className="loading loading-dots loading-lg text-primary"></span>
     );
   }
 
@@ -65,15 +63,15 @@ const LoanDetails = () => {
   ];
 
   return (
-    <div className="py-16 px-4 max-w-7xl mx-auto min-h-screen bg-gray-50">
+    <div className="py-16 px-4 max-w-7xl mx-auto min-h-screen bg-base-100">
       <motion.div
-        className="bg-white rounded-xl shadow-2xl overflow-hidden"
+        className="bg-base-200 rounded-xl shadow-2xl overflow-hidden"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
         <div className="grid lg:grid-cols-3">
-          <div className="lg:col-span-1 bg-gray-100 p-4">
+          <div className="lg:col-span-1 bg-base-200 p-4">
             <img
               src={loan.images}
               className="w-full h-96 object-cover rounded-lg shadow-xl transform hover:scale-[1.01] transition duration-300"
@@ -82,7 +80,7 @@ const LoanDetails = () => {
           </div>
 
           <div className="lg:col-span-2 p-8 md:p-12">
-            <h1 className="text-5xl font-extrabold text-gray-900 mb-4 border-b pb-3">
+            <h1 className="text-5xl font-extrabold text-base-content opacity-80 mb-4 border-b pb-3">
               {loan.title}
             </h1>
 
@@ -90,14 +88,14 @@ const LoanDetails = () => {
               {keyFeatures.map((feature, index) => (
                 <div
                   key={index}
-                  className="flex items-center space-x-3 p-4 bg-indigo-50 rounded-lg"
+                  className="flex items-center space-x-3 p-4 bg-base-200 rounded-lg"
                 >
                   {feature.icon}
                   <div>
-                    <p className="text-sm font-medium text-gray-500">
+                    <p className="text-sm font-medium text-base-content opacity-80">
                       {feature.title}
                     </p>
-                    <p className="text-xl font-bold text-gray-800">
+                    <p className="text-xl font-bold text-base-content opacity-80">
                       {feature.value}
                     </p>
                   </div>
@@ -106,16 +104,16 @@ const LoanDetails = () => {
             </div>
 
             <div className="mt-8">
-              <h3 className="text-2xl font-bold text-gray-800 mb-3">
+              <h3 className="text-2xl font-bold text-base-content opacity-80 mb-3">
                 Loan Overview
               </h3>
-              <p className="text-gray-600 leading-relaxed border-l-4 border-indigo-200 bg-indigo-50 pl-4 py-3">
+              <p className="text-base-content opacity-80 leading-relaxed border-l-4 border-indigo-200 bg-base-200 pl-4 py-3">
                 {loan.description}
               </p>
             </div>
 
             <div className="mt-8">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+              <h3 className="text-2xl font-bold text-base-content opacity-80 mb-4 flex items-center">
                 <FileText className="w-5 h-5 mr-2 text-indigo-600" />
                 <span>Required Documents</span>
               </h3>
@@ -126,7 +124,7 @@ const LoanDetails = () => {
                 ).map((doc, i) => (
                   <li
                     key={i}
-                    className="flex items-start text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm"
+                    className="flex items-start text-base-content opacity-80 bg-base-200 p-3 rounded-lg border border-gray-100 shadow-sm"
                   >
                     <span className="text-indigo-600 mr-3 mt-1">•</span>
                     {doc}
@@ -136,7 +134,7 @@ const LoanDetails = () => {
             </div>
 
             <div className="mt-10">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+              <h3 className="text-2xl font-bold text-base-content opacity-80 mb-4 flex items-center">
                 <Clock className="w-5 h-5 mr-2 text-indigo-600" />
                 <span>Flexible EMI Plans & Rates</span>
               </h3>
@@ -144,22 +142,22 @@ const LoanDetails = () => {
                 {loan.emiPlans?.map((plan, i) => (
                   <div
                     key={i}
-                    className="bg-white border border-indigo-200 rounded-lg p-4 shadow-md 
+                    className="bg-base-200 border border-indigo-200 rounded-lg p-4 shadow-md 
                    transition duration-300 hover:shadow-lg hover:border-indigo-400"
                   >
-                    <p className="text-sm font-medium text-gray-500 mb-1">
+                    <p className="text-sm font-medium text-base-content opacity-80 mb-1">
                       Duration
                     </p>
                     <p className="text-xl font-bold text-indigo-700">
                       {plan.duration}
                     </p>
 
-                    <div className="h-px bg-gray-200 my-2"></div>
+                    <div className="h-px bg-base-200 my-2"></div>
 
-                    <p className="text-sm font-medium text-gray-500 mb-1">
+                    <p className="text-sm font-medium text-base-content opacity-80 mb-1">
                       Interest Rate
                     </p>
-                    <p className="text-lg font-semibold text-gray-800">
+                    <p className="text-lg font-semibold text-base-content opacity-80">
                       {plan.rate}
                     </p>
                   </div>
@@ -169,7 +167,7 @@ const LoanDetails = () => {
           </div>
         </div>
 
-        <div className="p-6 bg-gray-100 border-t flex justify-end">
+        <div className="p-6 bg-base-200 border-t flex justify-end">
           <button
             onClick={handleApply}
             disabled={!user || isBlockedRole}

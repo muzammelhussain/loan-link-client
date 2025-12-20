@@ -1,16 +1,58 @@
-# React + Vite
+# Loan Link
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Loan Link** is a modern, full-stack loan management web application where users can explore available loans, apply online, track application status, and complete payments securely. The platform also provides role-based dashboards for Admins and Managers to manage users and loans efficiently.
 
-Currently, two official plugins are available:
+**Live Site (Client):** https://loan-link-5051d.web.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
 
-## React Compiler
+- **Authentication & Authorization**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  - Email & password login with Firebase
+  - Google authentication support
+  - Role-based access (Borrower, Manager, Admin)
 
-## Expanding the ESLint configuration
+- **Dynamic Home Page**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+  - Animated hero section using Framer Motion
+  - “Available Loans” section powered by MongoDB
+  - Admin-controlled “Show on Home” loan visibility
+
+- **Loan Management System**
+
+  - View detailed loan information
+  - Apply for loans with auto-filled user data
+  - EMI plans and interest rate display
+
+- **User Dashboard**
+
+  - Borrowers can track applied loans & payment status
+  - Managers can view pending loan applications
+  - Admins can manage users, roles, and loans
+
+- **Secure Payment Integration**
+  - Stripe payment gateway
+  - Fixed application fee system
+  - Payment history modal with transaction details
+
+---
+
+## Technologies Used
+
+- **Frontend:** React, Vite, Tailwind CSS, DaisyUI
+- **State & Data:** TanStack React Query, Axios
+- **Authentication:** Firebase
+- **Animations:** Framer Motion, Lottie
+- **Maps & UI:** React Leaflet, Swiper, SweetAlert2
+- **Deployment:** Vercel
+
+## Github links
+
+server-side
+https://github.com/muzammelhussain/loan-link-server
+
+client-side
+https://github.com/muzammelhussain/loan-link-client
+
+live link
+https://loan-link-5051d.web.app/
