@@ -1,21 +1,30 @@
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../../hooks/useAxios";
 
 const MyProfile = () => {
   const { user, loading, logOut } = useAuth();
+  const axiosInstance = useAxios();
+
+  // ✅ fetch role from DB
+  const { data: roleData, isLoading: roleLoading } = useQuery({
+    enabled: !!user?.email,
+    queryKey: ["userRole", user?.email],
+    queryFn: async () => {
+      const res = await axiosInstance.get(`/users/${user.email}/role`);
+      return res.data;
+    },
+  });
 
   const handleLogOut = () => {
-    logOut()
-      .then()
-      .catch((error) => {
-        console.log(error);
-      });
+    logOut().catch(console.log);
   };
 
-  if (loading) {
+  if (loading || roleLoading) {
     return (
       <div className="flex justify-center mt-10">
-        <span className="loading loading-dots loading-xl"></span>;
+        <span className="loading loading-dots loading-xl"></span>
       </div>
     );
   }
@@ -29,23 +38,25 @@ const MyProfile = () => {
       <h2 className="text-2xl font-bold mb-6">My Profile</h2>
 
       <div className="card bg-base-100 shadow-md">
-        <div className="card-body ">
+        <div className="card-body">
           {/* Profile Header */}
-          <div className="flex items-center">
-            <div className="flex items-center  gap-6">
-              <img
-                src={user.photoURL || "https://i.ibb.co/2kR5zq0/avatar.png"}
-                alt="Profile"
-                className="w-24 h-24 rounded-full border"
-              />
+          <div className="flex items-center gap-6">
+            <img
+              src={user.photoURL || "https://i.ibb.co/2kR5zq0/avatar.png"}
+              alt="Profile"
+              className="w-24 h-24 rounded-full border"
+            />
 
-              <div>
-                <h3 className="text-xl font-semibold">
-                  {user.displayName || "Manager"}
-                </h3>
-                <p className="text-gray-500">{user.email}</p>
-                <span className="badge badge-primary mt-2">Manager</span>
-              </div>
+            <div>
+              <h3 className="text-xl font-semibold">
+                {user.displayName || "User"}
+              </h3>
+              <p className="text-gray-500">{user.email}</p>
+
+              {/* ✅ role from DB */}
+              <span className="badge badge-primary mt-2 capitalize">
+                {roleData?.role}
+              </span>
             </div>
           </div>
 
@@ -73,6 +84,7 @@ const MyProfile = () => {
             />
           </div>
         </div>
+
         <button
           onClick={handleLogOut}
           className="btn btn-error btn-sm text-white"

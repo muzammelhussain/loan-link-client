@@ -7,7 +7,7 @@ const LoanApplications = () => {
   const [statusFilter, setStatusFilter] = useState("All");
   const [selectedLoan, setSelectedLoan] = useState(null);
 
-  const { data: applications = [] } = useQuery({
+  const { data: applications = [], isLoading } = useQuery({
     queryKey: ["loanApplications"],
     queryFn: async () => {
       const res = await axiosInstance.get("/admin/loan-applications");
@@ -19,6 +19,14 @@ const LoanApplications = () => {
     statusFilter === "All"
       ? applications
       : applications.filter((app) => app.status === statusFilter);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center mt-10">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">

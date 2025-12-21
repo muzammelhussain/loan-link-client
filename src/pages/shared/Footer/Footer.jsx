@@ -1,18 +1,13 @@
 import React from "react";
 import logoImage from "../../../assets/logo2.png";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
-  FaGithub,
-  FaDribbble,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaGithub, FaDribbble } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const socialLinks = [
     { icon: FaFacebook, href: "#", label: "Facebook" },
     { icon: FaInstagram, href: "#", label: "Instagram" },
-    { icon: FaTwitter, href: "#", label: "Twitter" },
+    { icon: FaXTwitter, href: "#", label: "Twitter" },
     { icon: FaGithub, href: "#", label: "GitHub" },
     { icon: FaDribbble, href: "#", label: "Dribbble" },
   ];

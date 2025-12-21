@@ -5,11 +5,11 @@ const ManagerRoute = ({ children }) => {
   const { loading } = useAuth();
   const { role, roleLoading } = useRole();
   if (loading || roleLoading) {
-    return <h1>loading...............</h1>;
+    return <span className="loading loading-dots loading-xl"></span>;
   }
 
   if (role !== "manager") {
-    return <h1>this not admin</h1>;
+    return <h1>This not manager route</h1>;
   }
   return children;
 };

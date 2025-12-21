@@ -8,7 +8,7 @@ const AdminRoute = ({ children }) => {
   const navigate = useNavigate();
   const { role, roleLoading } = useRole();
   if (loading || roleLoading) {
-    return <h1>loading...............</h1>;
+    return <span className="loading loading-dots loading-xl"></span>;
   }
 
   if (role !== "admin") {

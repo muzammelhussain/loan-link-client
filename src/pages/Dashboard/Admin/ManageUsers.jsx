@@ -12,7 +12,11 @@ const ManageUsers = () => {
   const [suspendUser, setSuspendUser] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const { data: users = [], refetch } = useQuery({
+  const {
+    data: users = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosInstance.get("/users");
@@ -52,6 +56,14 @@ const ManageUsers = () => {
     toast.success("User activated");
     refetch();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center mt-10">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-base-200 rounded-xl shadow p-6">
