@@ -4,9 +4,9 @@ import { Outlet } from "react-router";
 
 const RootLayout = () => {
   return (
-    <div className="flex flex-col">
+    <div className="">
       <Navbar />
-      <main className="flex-grow">
+      <main className="">
         <Outlet />
       </main>
       <Footer />

@@ -31,6 +31,8 @@ import HelpPage from "../pages/help/HelpPage";
 import PrivacyTerms from "../pages/privacy/PrivacyTerms";
 
 import FullPageBlog from "../pages/blog/FullPageBlog";
+import Impact from "../pages/shared/Footer/Impact";
+import Careers from "../pages/shared/Footer/Careers";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -65,11 +67,19 @@ export const router = createBrowserRouter([
         Component: PrivacyTerms,
       },
       {
+        path: "careers",
+        Component: Careers,
+      },
+      {
+        path: "impact",
+        Component: Impact,
+      },
+      {
         path: "/loans/:id",
         element: (
-          <PrivateRoute>
+          
             <LoanDetails></LoanDetails>
-          </PrivateRoute>
+         
         ),
       },
       {

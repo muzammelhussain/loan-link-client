@@ -55,14 +55,14 @@ const blogs = [
     desc: "Learn why early repayment can save you money.",
     author: "Sara Khan",
     date: "Jan 2, 2026",
-    image: "https://i.ibb.co/2kz5B1L/images4.jpg",
+    image: "https://i.ibb.co.com/6JJSSfBg/images10.jpg",
   },
   {
     title: "Business vs Personal Loans",
     desc: "Differences between business and personal loans explained.",
     author: "Mark Lee",
     date: "Dec 30, 2025",
-    image: "https://i.ibb.co/7bJ0M2M/images5.jpg",
+    image: "https://i.ibb.co.com/HTL4CSQM/images4.jpg",
   },
 ];
 
@@ -81,7 +81,7 @@ const FullPageBlog = () => {
   }, []);
 
   return (
-    <div className="bg-base-100 min-h-screen relative">
+    <div className="bg-base-100 min-h-screen relative mx-auto">
       {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 h-1 bg-primary z-50" style={{ width: `${scrollProgress}%` }} />
 
@@ -116,7 +116,7 @@ const FullPageBlog = () => {
         </motion.div>
 
         {/* Sticky TOC for desktop */}
-        <div className="hidden lg:block fixed top-32 left-8 w-48">
+        <div className="hidden lg:block fixed top-32 left-32 w-48">
           <h2 className="font-semibold mb-4 text-lg text-base-content">Contents</h2>
           <ul className="space-y-2 text-gray-600 text-sm">
             {blog.content.map((section, idx) => (
