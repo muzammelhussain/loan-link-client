@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const HeroSection = () => {
   return (
-    <section className="bg-base-200 py-20 px-4 md:px-6">
+    <section className="mt-10 bg-base-200 py-20 px-4 md:px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left Content */}
         <motion.div

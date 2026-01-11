@@ -27,7 +27,10 @@ import ApprovedLoans from "../pages/Dashboard/Manager/ApprovedLoans";
 import PaymentSuccess from "../pages/Dashboard/Borrower/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/Borrower/PaymentCancel";
 import Page404 from "../pages/Page404";
+import HelpPage from "../pages/help/HelpPage";
+import PrivacyTerms from "../pages/privacy/PrivacyTerms";
 
+import FullPageBlog from "../pages/blog/FullPageBlog";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +51,18 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         Component: Contact,
+      },
+      {
+        path: "help",
+        Component: HelpPage,
+      },
+      {
+        path: "blog",
+        Component: FullPageBlog,
+      },
+      {
+        path: "privacy",
+        Component: PrivacyTerms,
       },
       {
         path: "/loans/:id",

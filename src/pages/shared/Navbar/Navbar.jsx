@@ -1,241 +1,196 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
+import { gsap } from "gsap";
 import useAuth from "../../../hooks/useAuth";
 import logo from "../../../assets/logo2.png";
 import ThemeToggle from "../../../components/theme/ThemeToggle";
+
 const Navbar = () => {
   const { user, logOut } = useAuth();
-  const handleLogOut = () => {
-    logOut()
-      .then()
-      .catch((error) => {
-        console.log(error);
+
+  const dropdownRef = useRef(null);
+  const btnRef = useRef(null);
+  const itemsRef = useRef([]);
+
+  const [open, setOpen] = useState(false);
+
+  const handleLogOut = () => logOut().catch(console.log);
+
+  const links = [
+    { to: "/", label: "Home" },
+    { to: "/all-loan-page", label: "All Loan" },
+    !user && { to: "/about-us", label: "About" },
+    !user && { to: "/contact", label: "Contact" },
+    user && { to: "/dashboard", label: "Dashboard" },
+    { to: "/privacy", label: "Privacy/Terms" },
+    { to: "/blog", label: "Blog" },
+    { to: "/help", label: "Help" },
+    
+  ].filter(Boolean);
+
+  // GSAP OPEN / CLOSE
+  const toggleMenu = () => {
+    if (!open) {
+      setOpen(true);
+
+      gsap.fromTo(
+        dropdownRef.current,
+        { opacity: 0, y: -12, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "power3.out" }
+      );
+
+      gsap.from(itemsRef.current, {
+        opacity: 0,
+        y: -8,
+        stagger: 0.06,
+        delay: 0.1,
+        duration: 0.25,
+        ease: "power2.out",
       });
+
+      gsap.to(btnRef.current, { rotate: 90, duration: 0.3 });
+    } else {
+      closeMenu();
+    }
   };
-  const links = (
-    <>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="/all-loan-page">All Loan</NavLink>
-      </li>
 
-      {!user && (
-        <>
-          <li>
-            <NavLink to="/about-us">About-Us</NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact">Contact</NavLink>
-          </li>
-        </>
-      )}
+  const closeMenu = () => {
+    gsap.to(dropdownRef.current, {
+      opacity: 0,
+      y: -12,
+      scale: 0.96,
+      duration: 0.25,
+      ease: "power2.in",
+      onComplete: () => setOpen(false),
+    });
 
-      {user && (
-        <>
-          <li>
-            <NavLink to="/dashboard">Dashboard</NavLink>
-          </li>
-        </>
-      )}
-    </>
-  );
+    gsap.to(btnRef.current, { rotate: 0, duration: 0.3 });
+  };
+
+  // CLICK OUTSIDE
+  useEffect(() => {
+    const handler = (e) => {
+      if (
+        open &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target) &&
+        !btnRef.current.contains(e.target)
+      ) {
+        closeMenu();
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
+  // SCROLL BLUR EFFECT (with cleanup)
+  useEffect(() => {
+    const onScroll = () => {
+      const nav = document.querySelector(".glass-nav");
+      if (!nav) return;
+      nav.style.backdropFilter =
+        window.scrollY > 10 ? "blur(18px)" : "blur(12px)";
+    };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    // <div>
-    //   <header class="bg-base-200">
-    //     <div class="mx-auto flex h-16 max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-    //       <a class="block text-teal-600" href="#">
-    //         <span class="sr-only">Home</span>
-    //         <svg
-    //           class="h-8"
-    //           viewBox="0 0 28 24"
-    //           fill="none"
-    //           xmlns="http://www.w3.org/2000/svg"
-    //         >
-    //           <path
-    //             d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41ZM23.62 16.6547C24.236 16.175 24.9995 15.924 25.78 15.9447H27.39V12.7347H25.78C24.4052 12.7181 23.0619 13.146 21.95 13.9547C21.3243 14.416 20.5674 14.6649 19.79 14.6649C19.0126 14.6649 18.2557 14.416 17.63 13.9547C16.4899 13.1611 15.1341 12.7356 13.745 12.7356C12.3559 12.7356 11.0001 13.1611 9.86 13.9547C9.2343 14.416 8.4774 14.6649 7.7 14.6649C6.9226 14.6649 6.1657 14.416 5.54 13.9547C4.4144 13.1356 3.0518 12.7072 1.66 12.7347H0V15.9447H1.61C2.39051 15.924 3.154 16.175 3.77 16.6547C4.908 17.4489 6.2623 17.8747 7.65 17.8747C9.0377 17.8747 10.392 17.4489 11.53 16.6547C12.1468 16.1765 12.9097 15.9257 13.69 15.9447C14.4708 15.9223 15.2348 16.1735 15.85 16.6547C16.9901 17.4484 18.3459 17.8738 19.735 17.8738C21.1241 17.8738 22.4799 17.4484 23.62 16.6547ZM23.62 22.3947C24.236 21.915 24.9995 21.664 25.78 21.6847H27.39V18.4747H25.78C24.4052 18.4581 23.0619 18.886 21.95 19.6947C21.3243 20.156 20.5674 20.4049 19.79 20.4049C19.0126 20.4049 18.2557 20.156 17.63 19.6947C16.4899 18.9011 15.1341 18.4757 13.745 18.4757C12.3559 18.4757 11.0001 18.9011 9.86 19.6947C9.2343 20.156 8.4774 20.4049 7.7 20.4049C6.9226 20.4049 6.1657 20.156 5.54 19.6947C4.4144 18.8757 3.0518 18.4472 1.66 18.4747H0V21.6847H1.61C2.39051 21.664 3.154 21.915 3.77 22.3947C4.908 23.1889 6.2623 23.6147 7.65 23.6147C9.0377 23.6147 10.392 23.1889 11.53 22.3947C12.1468 21.9165 12.9097 21.6657 13.69 21.6847C14.4708 21.6623 15.2348 21.9135 15.85 22.3947C16.9901 23.1884 18.3459 23.6138 19.735 23.6138C21.1241 23.6138 22.4799 23.1884 23.62 22.3947Z"
-    //             fill="currentColor"
-    //           ></path>
-    //         </svg>
-    //       </a>
+    <header className="sticky top-0 z-40 glass-nav">
+      <div className="navbar max-w-7xl mx-auto px-4">
 
-    //       <div class="flex flex-1 items-center justify-end md:justify-between">
-    //         <nav aria-label="Global" class="hidden md:block">
-    //           <ul class="flex items-center gap-6 text-sm">
-    //             <li>
-    //               <a
-    //                 class="text-gray-500 transition hover:text-gray-500/75"
-    //                 href="#"
-    //               >
-    //                 {" "}
-    //                 About{" "}
-    //               </a>
-    //             </li>
+        {/* LEFT */}
+        <div className="navbar-start">
+          <Link to="/" className="flex items-center gap-2">
+            <img src={logo} className="h-10 w-10" alt="logo" />
+            <span className="font-semibold">Loan Link</span>
+          </Link>
+        </div>
 
-    //             <li>
-    //               <a
-    //                 class="text-gray-500 transition hover:text-gray-500/75"
-    //                 href="#"
-    //               >
-    //                 {" "}
-    //                 Careers{" "}
-    //               </a>
-    //             </li>
-
-    //             <li>
-    //               <a
-    //                 class="text-gray-500 transition hover:text-gray-500/75"
-    //                 href="#"
-    //               >
-    //                 {" "}
-    //                 History{" "}
-    //               </a>
-    //             </li>
-
-    //             <li>
-    //               <a
-    //                 class="text-gray-500 transition hover:text-gray-500/75"
-    //                 href="#"
-    //               >
-    //                 {" "}
-    //                 Services{" "}
-    //               </a>
-    //             </li>
-
-    //             <li>
-    //               <a
-    //                 class="text-gray-500 transition hover:text-gray-500/75"
-    //                 href="#"
-    //               >
-    //                 {" "}
-    //                 Projects{" "}
-    //               </a>
-    //             </li>
-
-    //             <li>
-    //               <a
-    //                 class="text-gray-500 transition hover:text-gray-500/75"
-    //                 href="#"
-    //               >
-    //                 {" "}
-    //                 Blog{" "}
-    //               </a>
-    //             </li>
-    //           </ul>
-    //         </nav>
-
-    //         <div class="flex items-center gap-4">
-    //           <div class="sm:flex sm:gap-4">
-    //             <a
-    //               class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
-    //               href="#"
-    //             >
-    //               Login
-    //             </a>
-
-    //             <a
-    //               class="hidden rounded-md bg-base-200 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-    //               href="#"
-    //             >
-    //               Register
-    //             </a>
-    //           </div>
-
-    //           <button class="block rounded-sm bg-base-200 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
-    //             <span class="sr-only">Toggle menu</span>
-    //             <svg
-    //               xmlns="http://www.w3.org/2000/svg"
-    //               class="size-5"
-    //               fill="none"
-    //               viewBox="0 0 24 24"
-    //               stroke="currentColor"
-    //               stroke-width="2"
-    //             >
-    //               <path
-    //                 stroke-linecap="round"
-    //                 stroke-linejoin="round"
-    //                 d="M4 6h16M4 12h16M4 18h16"
-    //               ></path>
-    //             </svg>
-    //           </button>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </header>
-    // </div>
-
-    <div className="navbar bg-base-100 shadow-sm">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            {links}
+        {/* CENTER */}
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">
+            {links.map((l) => (
+              <li key={l.to}>
+                <NavLink to={l.to}>{l.label}</NavLink>
+              </li>
+            ))}
           </ul>
         </div>
-        <Link to="/">
-          <span className="flex justify-center items-center">
-            <img className="h-10 w-10" src={logo} alt="" />
-            <p>Loan Link</p>
-          </span>
-        </Link>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
-      </div>
-      <div className="navbar-end">
-        {!user ? (
-          <>
-            <Link className="btn btn-outline mr-2" to="/login">
-              Login
-            </Link>
-            <Link className="btn btn-primary" to="/register">
-              Register
-            </Link>
-          </>
-        ) : (
-          <div className="flex items-center gap-3">
-            {/* User Avatar */}
-            <div className="avatar">
-              <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img
-                  src={user.photoURL || "https://i.ibb.co/2kR9p3R/user.png"}
-                  alt="User Avatar"
-                />
-              </div>
-            </div>
 
-            {/* Logout Button */}
+        {/* RIGHT */}
+        <div className="navbar-end flex items-center gap-2">
+          <ThemeToggle />
+
+          {/* DESKTOP AUTH */}
+          {!user ? (
+            <div className="hidden lg:flex gap-2">
+              <Link className="btn btn-outline btn-sm" to="/login">
+                Login
+              </Link>
+              <Link className="btn btn-primary btn-sm" to="/register">
+                Register
+              </Link>
+            </div>
+          ) : (
+            <div className="hidden lg:flex items-center gap-2">
+              <img
+                className="w-9 h-9 rounded-full ring ring-primary"
+                src={user.photoURL || "https://i.ibb.co/2kR9p3R/user.png"}
+                alt="user"
+              />
+              <button onClick={handleLogOut} className="btn btn-error btn-sm">
+                Logout
+              </button>
+            </div>
+          )}
+
+          {/* MOBILE GSAP MENU */}
+          <div className="relative lg:hidden">
             <button
-              onClick={handleLogOut}
-              className="btn btn-error btn-sm text-white"
+              ref={btnRef}
+              onClick={toggleMenu}
+              className="btn btn-ghost text-xl"
             >
-              Logout
+              ☰
             </button>
+
+            {open && (
+              <ul
+                ref={dropdownRef}
+                className="menu menu-sm absolute right-0 mt-3 p-3 w-52 rounded-xl shadow-lg glass-dropdown origin-top"
+              >
+                {links.map((l, i) => (
+                  <li key={l.to} ref={(el) => (itemsRef.current[i] = el)}>
+                    <NavLink to={l.to} onClick={closeMenu}>
+                      {l.label}
+                    </NavLink>
+                  </li>
+                ))}
+
+                <div className="divider"></div>
+
+                {!user ? (
+                  <>
+                    <li ref={(el) => (itemsRef.current[links.length] = el)}>
+                      <NavLink to="/login">Login</NavLink>
+                    </li>
+                    <li ref={(el) => (itemsRef.current[links.length + 1] = el)}>
+                      <NavLink to="/register">Register</NavLink>
+                    </li>
+                  </>
+                ) : (
+                  <li ref={(el) => (itemsRef.current[links.length] = el)}>
+                    <button onClick={handleLogOut}>Logout</button>
+                  </li>
+                )}
+              </ul>
+            )}
           </div>
-        )}
-        <ThemeToggle></ThemeToggle>
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 
