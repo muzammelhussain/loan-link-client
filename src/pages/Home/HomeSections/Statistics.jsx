@@ -20,7 +20,7 @@ const cardVariants = {
 };
 
 const Statistics = () => (
-  <section className="py-20 px-6 bg-base-200">
+  <section className="py-20 px-6 bg-base-100">
     <div className="max-w-6xl mx-auto text-center">
       <h2 className="text-3xl md:text-4xl font-bold mb-12 text-base-content">
         Platform Statistics
@@ -37,7 +37,7 @@ const Statistics = () => (
           <motion.div
             key={index}
             variants={cardVariants}
-            className="bg-base-100 shadow-lg rounded-xl p-8 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300"
+            className="bg-base-200 shadow-lg rounded-xl p-8 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300"
           >
             <div className="text-5xl mb-4">{stat.icon}</div>
             <div className="text-3xl md:text-4xl font-extrabold mb-2 text-primary">

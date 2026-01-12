@@ -45,7 +45,7 @@ const Categories = ({ theme = "light" }) => {
                 className={`${bgClass} rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer shadow-lg hover:scale-105 transition-transform duration-300`}
               >
                 <div className="text-4xl mb-3">{cat.icon}</div>
-                <h3 className="text-lg sm:text-base md:text-lg font-semibold text-base-content">
+                <h3 className="text-lg sm:text-indigo-600 md:text-lg font-semibold text-base-content">
                   {cat.title}
                 </h3>
               </motion.div>

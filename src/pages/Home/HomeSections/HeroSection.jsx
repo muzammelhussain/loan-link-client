@@ -61,7 +61,7 @@ const HeroSection = () => {
               <motion.button
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
-                className="mt-8 px-10 py-4 bg-primary text-primary-content rounded-full font-semibold shadow-lg"
+                className="mt-8 px-8 py-4 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-primary-content rounded-full font-semibold shadow-xl"
               >
                 Apply for Loan
               </motion.button>

@@ -44,7 +44,7 @@ const Services = () => {
               className="bg-base-200 shadow-lg rounded-xl p-6 cursor-pointer hover:scale-105 transition-transform duration-300"
             >
               <div className="text-5xl mb-4">{service.icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+              <h3 className="text-xl font-semibold mb-2 text-amber-600">{service.title}</h3>
               <p className="text-sm opacity-80">{service.desc}</p>
             </motion.div>
           ))}

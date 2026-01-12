@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const AboutUs = () => {
   return (
-    <div className="pt-24 pb-16 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 opacity-70">
+    <div className="pt-24 pb-16 bg-base-100">
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <motion.h2

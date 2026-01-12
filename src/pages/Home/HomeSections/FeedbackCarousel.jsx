@@ -21,20 +21,20 @@ const FeedbackCarousel = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-base-200">
+    <section className="py-20 px-6 bg-base-100">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-10 text-base-content">
           What Our Customers Say
         </h2>
 
         {/* Carousel */}
-        <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide justify-start md:justify-center">
+        <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide justify-start md:justify-center ">
           {feedbackData.map((item, index) => (
             <motion.div
               key={index}
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="min-w-[280px] md:min-w-[320px] bg-base-100 p-6 rounded-xl shadow-lg"
+              className="min-w-[280px] md:min-w-[320px] bg-base-200 p-6 rounded-xl shadow-lg"
             >
               <p className="text-sm md:text-base opacity-80 leading-relaxed">
                 “{item.feedback}”

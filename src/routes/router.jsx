@@ -33,6 +33,7 @@ import PrivacyTerms from "../pages/privacy/PrivacyTerms";
 import FullPageBlog from "../pages/blog/FullPageBlog";
 import Impact from "../pages/shared/Footer/Impact";
 import Careers from "../pages/shared/Footer/Careers";
+import Overview from "../pages/Dashboard/OverView"
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -119,6 +120,11 @@ export const router = createBrowserRouter([
         path: "my-loans",
         Component: MyLoans,
       },
+      {
+        path: "overView",
+        Component: Overview,
+      },
+
       {
         path: "my-profile",
         Component: MyProfile,

@@ -82,7 +82,7 @@ const HelpPage = () => {
       {/* FAQs Section */}
       <div className="max-w-4xl mx-auto mb-16">
         <h2 className="text-3xl font-semibold mb-6 text-base-content">FAQs</h2>
-        <div className="bg-base-200 shadow-lg rounded-xl divide-y divide-base-300">
+        <div className="bg-base-200 px-8 shadow-lg rounded-xl divide-y divide-base-300">
           {faqs.map((faq, index) => (
             <FAQItem
               key={index}

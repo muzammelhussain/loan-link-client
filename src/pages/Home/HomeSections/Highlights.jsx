@@ -39,7 +39,7 @@ const Highlights = () => (
             className="bg-base-200 rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300"
           >
             <div className="text-5xl mb-4">{item.icon}</div>
-            <h3 className="text-xl font-semibold mb-2">{item.label}</h3>
+            <h3 className="text-xl text-amber-600 font-semibold mb-2">{item.label}</h3>
             <p className="text-sm text-center opacity-80">{item.desc}</p>
           </motion.div>
         ))}

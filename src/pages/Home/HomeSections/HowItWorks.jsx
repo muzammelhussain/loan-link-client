@@ -13,7 +13,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-base-200">
+    <section className="py-20 px-6 bg-base-100">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-10 text-base-content">
           How LoanLink Works
@@ -27,13 +27,13 @@ const HowItWorks = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-base-100 shadow-lg rounded-xl p-6"
+              className="bg-base-200 shadow-lg rounded-xl p-6"
             >
               <div className="text-primary text-4xl font-extrabold">
                 {item.step}
               </div>
 
-              <h3 className="text-xl font-semibold mt-3 text-base-content">
+              <h3 className="text-xl font-semibold mt-3 text-amber-600">
                 {item.title}
               </h3>
 

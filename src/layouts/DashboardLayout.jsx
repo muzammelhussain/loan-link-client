@@ -5,6 +5,7 @@ import {
   FaHandHoldingDollar,
   FaUsersGear,
 } from "react-icons/fa6";
+import { FaChartBar } from "react-icons/fa";
 import {
   MdAddCircle,
   MdManageAccounts,
@@ -184,6 +185,16 @@ const DashboardLayout = () => {
                   </li>
                 </>
               )}
+              <li>
+        <NavLink
+          to="/dashboard/overView"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Over View"
+        >
+          <FaChartBar />
+          <span className="is-drawer-close:hidden">Over View</span>
+        </NavLink>
+      </li>
 
               <li>
                 <button

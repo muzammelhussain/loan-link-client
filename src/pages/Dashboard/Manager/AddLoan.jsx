@@ -1,4 +1,5 @@
 import { useForm, useFieldArray } from "react-hook-form";
+import { motion, AnimatePresence } from "framer-motion";
 import useAxios from "../../../hooks/useAxios";
 import toast from "react-hot-toast";
 
@@ -18,29 +19,23 @@ const AddLoan = () => {
   });
 
   const onSubmit = async (data) => {
-    const documentsArray = Array.isArray(data.requiredDocuments)
-      ? data.requiredDocuments
-      : data.requiredDocuments
+    const documentsArray = data.requiredDocuments
       ? data.requiredDocuments
           .split(",")
-          .map((doc) => doc.trim())
-          .filter((doc) => doc.length > 0)
+          .map((d) => d.trim())
+          .filter(Boolean)
       : [];
 
     const loanData = {
-      title: data.title,
-      description: data.description,
-      category: data.category,
+      ...data,
       interestRate: Number(data.interestRate),
       maxAmount: Number(data.maxAmount),
       requiredDocuments: documentsArray,
       images: data.image,
-      emiPlans: data.emiPlans.map((plan) => ({
-        duration: plan.duration,
-        // Ensure rate is a number, handling empty/invalid input if possible in a real app
-        rate: Number(plan.rate),
+      emiPlans: data.emiPlans.map((p) => ({
+        duration: p.duration,
+        rate: Number(p.rate),
       })),
-      showOnHome: data.showOnHome,
       createdAt: new Date(),
     };
 
@@ -48,132 +43,145 @@ const AddLoan = () => {
       await axiosInstance.post("/manager/loans", loanData);
       toast.success("Loan added successfully 🎉");
       reset();
-    } catch (error) {
+    } catch {
       toast.error("Failed to add loan");
     }
   };
 
   return (
-    <div className="p-4 sm:p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-center sm:text-left">
-        Add Loan
-      </h2>
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 p-6"
+    >
+      <div className="w-full max-w-4xl bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-6 sm:p-10 text-white">
+        <h2 className="text-3xl font-extrabold mb-8 text-center">
+          Add New Loan
+        </h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {" "}
-        {/* Loan Title */}
-        <Input
-          label="Loan Title"
-          register={register("title", { required: true })}
-        />
-        {/* Description */}
-        <Textarea
-          label="Description"
-          register={register("description", { required: true })}
-        />
-        {/* Category */}
-        <Input
-          label="Category"
-          register={register("category", { required: true })}
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            label="Interest Rate (%)"
-            type="text"
-            register={register("interestRate", { required: true })}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <AnimatedInput label="Loan Title" register={register("title")} />
+          <AnimatedTextarea label="Description" register={register("description")} />
+          <AnimatedInput label="Category" register={register("category")} />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <AnimatedInput
+              label="Interest Rate (%)"
+              register={register("interestRate")}
+            />
+            <AnimatedInput
+              label="Max Loan Amount"
+              type="number"
+              register={register("maxAmount")}
+            />
+          </div>
+
+          <AnimatedTextarea
+            label="Required Documents"
+            placeholder="NID, Bank Statement, Salary Slip"
+            register={register("requiredDocuments")}
           />
-          <Input
-            label="Max Loan Limit"
-            type="number"
-            register={register("maxAmount", { required: true })}
-          />
-        </div>
-        {/* Required Documents */}
-        <Textarea
-          label="Required Documents (Separate by comma, e.g., NID, Bank Statement)"
-          placeholder="NID, Bank Statement, Salary Slip"
-          register={register("requiredDocuments")}
-        />
-        {/* Image */}
-        <Input label="Image URL" register={register("image")} />
-        {/* EMI Plans */}
-        <div>
-          <h3 className="font-bold mb-3 text-lg">EMI Plans</h3>
-          {fields.map((field, index) => (
-            <div
-              key={field.id}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 p-3 border rounded-lg bg-base-200"
+
+          <AnimatedInput label="Image URL" register={register("image")} />
+
+          {/* EMI PLANS */}
+          <div>
+            <h3 className="font-bold text-lg mb-3">EMI Plans</h3>
+
+            <AnimatePresence>
+              {fields.map((field, index) => (
+                <motion.div
+                  key={field.id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 p-4 rounded-xl bg-white/10 border border-white/20"
+                >
+                  <input
+                    className="input input-bordered bg-transparent text-white"
+                    placeholder="Duration (12 Months)"
+                    {...register(`emiPlans.${index}.duration`)}
+                  />
+                  <input
+                    className="input input-bordered bg-transparent text-white"
+                    placeholder="Rate (%)"
+                    {...register(`emiPlans.${index}.rate`)}
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => remove(index)}
+                    className="btn btn-error btn-sm col-span-full"
+                  >
+                    Remove Plan
+                  </button>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+
+            <button
+              type="button"
+              onClick={() => append({ duration: "", rate: "" })}
+              className="btn btn-outline btn-sm text-white border-white"
             >
-              <input
-                className="input input-bordered w-full"
-                placeholder="Duration (e.g., 12 Months)"
-                {...register(`emiPlans.${index}.duration`, { required: true })}
-              />
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                placeholder="Rate (%)"
-                {...register(`emiPlans.${index}.rate`, { required: true })}
-              />
-              <button
-                type="button"
-                className="btn btn-error btn-sm col-span-full" // full width button
-                onClick={() => remove(index)}
-              >
-                Remove Plan
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            className="btn btn-outline btn-sm mt-2"
-            onClick={() => append({ duration: "", rate: "" })}
+              + Add EMI Plan
+            </button>
+          </div>
+
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              className="toggle toggle-info"
+              {...register("showOnHome")}
+            />
+            <span className="font-medium">Show on Home Page</span>
+          </label>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-blue-600 to-cyan-500 shadow-xl"
           >
-            + Add New EMI Plan
-          </button>
-        </div>
-        <label className="flex items-center gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            className="toggle toggle-primary"
-            {...register("showOnHome")}
-          />
-          <span className="label-text font-medium">Show on Home Page</span>
-        </label>
-        {/* Submit */}
-        <button className="btn btn-primary w-full mt-6">Add Loan</button>
-      </form>
-    </div>
+            Add Loan
+          </motion.button>
+        </form>
+      </div>
+    </motion.div>
   );
 };
 
-export default AddLoan;
-
-const Input = ({ label, register, type = "text", placeholder }) => (
-  <div className="form-control w-full">
-    {" "}
-    <label className="label">
-      <span className="label-text font-medium">{label}</span>
-    </label>
+const AnimatedInput = ({ label, register, type = "text", placeholder }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.3 }}
+  >
+    <label className="text-sm font-medium">{label}</label>
     <input
       type={type}
-      placeholder={placeholder || `Enter ${label}`}
+      placeholder={placeholder || label}
       {...register}
-      className="input input-bordered w-full"
+      className="input input-bordered w-full mt-1 bg-transparent text-white focus:ring-2 focus:ring-blue-400"
     />
-  </div>
+  </motion.div>
 );
 
-const Textarea = ({ label, register, placeholder }) => (
-  <div className="form-control w-full">
-    {" "}
-    <label className="label">
-      <span className="label-text font-medium">{label}</span>
-    </label>
+const AnimatedTextarea = ({ label, register, placeholder }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.3 }}
+  >
+    <label className="text-sm font-medium">{label}</label>
     <textarea
-      placeholder={placeholder || `Enter ${label}`}
+      placeholder={placeholder || label}
       {...register}
-      className="textarea textarea-bordered w-full h-24" // Added height
+      className="textarea textarea-bordered w-full mt-1 h-24 bg-transparent text-white focus:ring-2 focus:ring-blue-400"
     />
-  </div>
+  </motion.div>
 );
+
+
+export default AddLoan;

@@ -28,7 +28,7 @@ const Footer = () => {
               placeholder="name@example.com"
               className="px-4 py-3 rounded-lg text-content-base w-full sm:w-64 border-amber-200"
             />
-            <button className="px-6 py-3 bg-lime-500 text-neutral-900 rounded-lg font-semibold hover:bg-lime-400 transition">
+            <button className="px-6 py-3 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-primary-content  rounded-lg font-semibold hover:bg-lime-400 transition">
               Subscribe
             </button>
           </form>

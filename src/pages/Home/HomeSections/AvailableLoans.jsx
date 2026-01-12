@@ -34,7 +34,7 @@ const AvailableLoans = ({ loans, isLoading }) => {
 
                   {/* Content */}
                   <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-lg font-semibold mb-1">
+                    <h3 className="text-lg font-semibold mb-1 text-amber-600">
                       {loan.title}
                     </h3>
 
@@ -58,7 +58,8 @@ const AvailableLoans = ({ loans, isLoading }) => {
                     {/* CTA */}
                     <div className="mt-auto">
                       <Link to={`/loans/${loan._id}`}>
-                        <button className="btn btn-primary w-full rounded-xl">
+                        <button className="btn bg-gradient-to-r from-blue-500 to-cyan-400
+ w-full rounded-lg">
                           View Details
                         </button>
                       </Link>

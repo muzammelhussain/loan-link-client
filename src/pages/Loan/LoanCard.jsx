@@ -48,7 +48,8 @@ const LoanCard = ({ loan }) => {
         <div className="mt-auto">
           <button
             onClick={() => navigate(`/loans/${loan._id}`)}
-            className="btn btn-primary w-full rounded-xl"
+            className="btn  w-full rounded-xl bg-gradient-to-r from-blue-500 to-cyan-400
+"
           >
             View Details
           </button>

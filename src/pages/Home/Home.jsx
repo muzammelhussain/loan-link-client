@@ -39,9 +39,9 @@ const Home = () => {
       <Highlights></Highlights>
       <Statistics></Statistics>
       <Blogs></Blogs>
-      <Newsletter></Newsletter>
+      {/* <Newsletter></Newsletter> */}
       <FeedbackCarousel />
-      {/* <FeaturesSection /> */}
+      <FeaturesSection />
       <CtaSection />
       <FAQ></FAQ>
     </div>
